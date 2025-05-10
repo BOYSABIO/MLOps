@@ -1,0 +1,10 @@
+Create the computer vision model to identify objects in real time video
+- Could find a specific idea like indentifying facial expressions or someone with a mask
+
+House price prediction model
+- Easier to create but could be scaled into something more complex
+- https://www.kaggle.com/datasets/prevek18/ames-housing-dataset
+
+Modeling machine maintenance timing
+- More complext with real world implementations
+- nasa turbofan jet engine data set
