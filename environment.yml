@@ -9,11 +9,11 @@ dependencies:
   - pandas
   - scipy
   - matplotlib
-  - opencv-python
   - torch
   - torchvision
   - torchaudio
   - tqdm
-  - ultralytics
   - pip:
+      - opencv-python
+      - ultralytics
       - ultralytics-thop
