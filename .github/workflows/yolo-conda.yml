@@ -25,4 +25,3 @@ jobs:
 
       - name: Verify torch is installed
         run: python -c "import torch; print(torch.__version__)"
-
