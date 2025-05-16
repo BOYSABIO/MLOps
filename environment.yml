@@ -1,8 +1,8 @@
-name: object_detect_env
-channels:
+name: num_detect_env
+channels:       # Where conda finds default packages
   - conda-forge
   - defaults
-dependencies:
+dependencies:   # Latest packages in Conda
   - python=3.9
   - pip
   - numpy
@@ -13,7 +13,7 @@ dependencies:
   - torchvision=0.13.0
   - torchaudio
   - tqdm
-  - pip:
+  - pip:      # Latest packages in pip
       - opencv-python
       - ultralytics
       - ultralytics-thop
