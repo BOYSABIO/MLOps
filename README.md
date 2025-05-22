@@ -1,9 +1,5 @@
 # MNIST Number Detection
 
-<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
-    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
-</a>
-
 Using a neural network to predict hand written numbers 0-9
 
 ## Project Organization
@@ -34,8 +30,8 @@ Using a neural network to predict hand written numbers 0-9
 ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
 │   └── figures        <- Generated graphics and figures to be used in reporting
 │
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-│                         generated with `pip freeze > requirements.txt`
+├── environment.yml   <- The requirements file for reproducing the analysis environment, e.g.
+│                         generated with `pip freeze > environment.yml`
 │
 ├── setup.cfg          <- Configuration file for flake8
 │
