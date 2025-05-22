@@ -1,10 +1,17 @@
-name: num_detect_env
+name: MNIST_NUM_DETECT
 channels:       # Where conda finds default packages
   - conda-forge
   - defaults
 dependencies:   # Latest packages in Conda
   - python=3.9
   - pip
+  - typer
+  - loguru
+  - tqdm
+  - black
+  - flake8
+  - isort
+  - pytest
   - numpy
   - pandas
   - scipy
@@ -17,3 +24,6 @@ dependencies:   # Latest packages in Conda
       - opencv-python
       - ultralytics
       - ultralytics-thop
+      - python-dotenv
+      - mkdocs
+      - -e .
