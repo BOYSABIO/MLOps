@@ -1,7 +1,9 @@
 name: MNIST_NUM_DETECT
+
 channels:       # Where conda finds default packages
   - conda-forge
   - defaults
+
 dependencies:   # Latest packages in Conda
   - python=3.9
   - pip
@@ -20,6 +22,7 @@ dependencies:   # Latest packages in Conda
   - torchvision=0.13.0
   - torchaudio
   - tqdm
+  
   - pip:      # Latest packages in pip
       - opencv-python
       - ultralytics
