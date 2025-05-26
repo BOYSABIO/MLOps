@@ -11,7 +11,7 @@ __pycache__/
 
 # Logs and models
 logs/
-models/
+#models/
 *.h5
 
 # IDE / OS junk
