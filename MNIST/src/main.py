@@ -15,7 +15,7 @@ if __name__ == "__main__":
     config = load_config()
 
     # Load data (custom loader)
-    x_train, y_train, x_test, y_test = load_data(config)
+    (x_train, y_train), (x_test, y_test) = load_data()
 
     # Preprocessing
     x_train = x_train / 255.0
