@@ -17,3 +17,6 @@ logs/
 # IDE / OS junk
 .vscode/
 .DS_Store
+
+# Large Files
+.data/

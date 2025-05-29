@@ -4,7 +4,7 @@ import numpy as np
 from tensorflow.keras.utils import to_categorical
 
 # Configure logging
-logger = logging.getLogger(_name_)
+logger = logging.getLogger(__name__)
 
 
 def normalize_images(images):
@@ -58,20 +58,21 @@ def preprocess_data(images, labels, reshape=True):
     return processed_images, encoded_labels    
 
 
-def save_preprocessed_data(images, labels, output_dir):
+def save_preprocessed_data(images, labels, output_dir, data_type):
     """
-    Saves the preprocessed image and label arrays as .npy files.
+    Saves the preprocessed image and label arrays as .npy files with 'train' or 'test' in the filename.
 
     Args:
         images: Preprocessed image array.
         labels: One-hot encoded label array.
         output_dir: Directory path where files will be saved.
+        data_type: String, either 'train' or 'test', used in file naming.
     """
-    logger.info(f"Saving preprocessed data to: {output_dir}")
+    logger.info(f"Saving preprocessed {data_type} data to: {output_dir}")
     os.makedirs(output_dir, exist_ok=True)
 
-    images_path = os.path.join(output_dir, "images.npy")
-    labels_path = os.path.join(output_dir, "labels.npy")
+    images_path = os.path.join(output_dir, f"{data_type}_images.npy")
+    labels_path = os.path.join(output_dir, f"{data_type}_labels.npy")
 
     np.save(images_path, images)
     np.save(labels_path, labels)
