@@ -3,7 +3,6 @@ name: MNIST_NUM_DETECT
 channels:
   - conda-forge
   - defaults
-  - pytorch  # Explicitly add this for more robust PyTorch resolution
 
 dependencies:
   - python=3.10
@@ -22,12 +21,9 @@ dependencies:
   - matplotlib
   - scikit-learn
   - seaborn
-  - pytorch=2.1  # or 2.0 if 2.1 fails
-  - torchvision=0.16
-  - torchaudio=2.1
-  - tensorflow
-
+  
   - pip:
+      - tensorflow==2.15.0
       - opencv-python
       - ultralytics
       - ultralytics-thop
