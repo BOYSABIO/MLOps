@@ -1,7 +1,8 @@
 # main.py
 
-from src import model, evaluation
-from src.data_loader import load_data
+from src.model.model import model
+from src.data_load.data_loader import load_data
+from src.evaluation.evaluation import evaluation
 from src.utils.logging_config import setup_logging
 import yaml
 from keras.utils import to_categorical
