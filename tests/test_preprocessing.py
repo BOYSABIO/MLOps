@@ -1,12 +1,9 @@
-
+import pytest
 import sys
 import os
 import numpy as np
 
-# Ensure src is in the Python path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
-
-from src.preprocessing import (
+from src.preprocess.preprocessing import (
     normalize_images,
     reshape_images,
     one_hot_encode,
