@@ -8,6 +8,7 @@ from src.data_preprocess.data_preprocessing import preprocess_data, save_preproc
 from src.data_validation.validation import validate_data
 from src.features.features import flatten_images
 from src.model.model import build_model, compile_model, train_model
+from src.evaluation.evaluation import evaluate_model, plot_confusion_matrix
 
 PREPROCOUTPUT_TRAIN = 'data/processed/train/'
 PREPROCOUTPUT_TEST = 'data/processed/test/'
@@ -47,6 +48,8 @@ def main():
     # # Evaluation
     # acc, cm = evaluation.evaluate_model(m, x_test, y_test)
     # evaluation.plot_confusion_matrix(cm)
+    acc, cm = evaluate_model(model, pp_x_test, pp_y_test)
+    plot_confusion_matrix(cm)
 
 if __name__ == "__main__":
     main()
