@@ -4,7 +4,7 @@ import numpy as np
 from tensorflow.keras.utils import to_categorical
 
 # Configure logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(_name_)
 
 
 def normalize_images(images):
