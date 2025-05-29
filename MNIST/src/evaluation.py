@@ -13,7 +13,7 @@ def evaluate_model(model, x_test, y_test):
     acc = accuracy_score(true_labels, predictions)
     cm = confusion_matrix(true_labels, predictions)
 
-    print(f"✅ Accuracy: {acc:.4f}")
+    print(f"Accuracy: {acc:.4f}")
     return acc, cm
 
 def plot_confusion_matrix(cm, labels=None, title="Confusion Matrix", save_path=None):
