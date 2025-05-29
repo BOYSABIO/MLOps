@@ -18,6 +18,10 @@ def evaluate_model(model, x_test, y_test):
 
 def plot_confusion_matrix(cm, labels=None, title="Confusion Matrix", save_path=None):
     plt.figure(figsize=(8, 6))
+
+    if labels is None:
+        labels = list(range(cm.shape[0]))
+    
     sns.heatmap(cm, annot=True, fmt="d", cmap="Purples", xticklabels=labels, yticklabels=labels)
     plt.title(title)
     plt.xlabel("Predicted")
