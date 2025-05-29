@@ -3,7 +3,7 @@ import sys
 import os
 import numpy as np
 
-from src.preprocess.preprocessing import (
+from src.data_preprocess.preprocessing import (
     normalize_images,
     reshape_images,
     one_hot_encode,
