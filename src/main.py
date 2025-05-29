@@ -38,13 +38,7 @@ def main():
     p_x_train = flatten_images(pp_x_train)
     p_x_test = flatten_images(pp_x_test)
 
-
-
     # # Model pipeline
-    # m = model.build_model()
-    # m = model.compile_model(m)
-    # m = model.train_model(m, x_train, y_train)
-    # model.save_model(m)
     model = build_model(input_shape=tuple(config["model"]["input_shape"]),
                         num_classes=config["model"]["num_classes"])
     model = compile_model(model)
