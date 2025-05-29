@@ -55,7 +55,7 @@ def preprocess_data(images, labels, reshape=True):
         processed_images = reshape_images(processed_images)
     encoded_labels = one_hot_encode(labels)
     logger.info("Preprocessing complete.")
-    return processed_images, encoded_labels
+    return processed_images, encoded_labels    
 
 
 def save_preprocessed_data(images, labels, output_dir):
