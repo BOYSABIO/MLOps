@@ -20,6 +20,7 @@ dependencies:
   - scipy
   - matplotlib
   - scikit-learn
+  - seaborn
   - pytorch=2.1  # or 2.0 if 2.1 fails
   - torchvision=0.16
   - torchaudio=2.1
