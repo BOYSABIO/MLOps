@@ -1,21 +1,7 @@
-# config.yaml
-
-data:
-  raw_path: "data/raw"
-  processed_path: "data/processed"
-
 model:
-  save_path: "models/mnist-model.h5"
-  input_shape: [28, 28, 1]
-  num_classes: 10
-  epochs: 10
   batch_size: 32
-
-logging:
-  log_file: "logs/main_log.log"
-
-evaluation:
-  metrics: ["accuracy"]
-
-preprocessing:
-  normalize: true
+  epochs: 5
+  learning_rate: 0.001
+  input_shape: [1, 28, 28]  # PyTorch uses [C, H, W]
+  num_classes: 10
+  save_path: models/pytorch_mnist_model.pth
