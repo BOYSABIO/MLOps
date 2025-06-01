@@ -1,17 +1,22 @@
 import pytest
+import os
+import numpy as np
 from src.data_load.data_loader import load_data
 
-def test_load_data_shape():
+def test_load_data_shapes():
     (x_train, y_train), (x_test, y_test) = load_data()
-    
-    # Number of samples
-    assert x_train.shape[0] == y_train.shape[0] == 60000
-    assert x_test.shape[0] == y_test.shape[0] == 10000
-    
-    # Image dimensions
-    assert x_train.shape[1:] == (28, 28)
-    assert x_test.shape[1:] == (28, 28)
-    
-    # Labels should be 1D arrays (if not yet one-hot encoded)
-    assert len(y_train.shape) == 1 or y_train.shape[1] == 10  # allow for one-hot too
-    assert len(y_test.shape) == 1 or y_test.shape[1] == 10
+    assert x_train.shape == (60000, 28, 28)
+    assert x_test.shape == (10000, 28, 28)
+    assert y_train.shape == (60000,)
+    assert y_test.shape == (10000,)
+
+def test_saved_files_exist():
+    expected_files = [
+        "data/raw/x_train.npy",
+        "data/raw/y_train.npy",
+        "data/raw/x_test.npy",
+        "data/raw/y_test.npy"
+    ]
+    for file in expected_files:
+        assert os.path.exists(file), f"{file} was not found"
+
