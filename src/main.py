@@ -10,6 +10,7 @@ from src.data_validation.validation import validate_data
 from src.data_preprocess.data_preprocessing import preprocess_data, save_preprocessed_data
 from src.model.model import CNNModel, train_model, save_model
 from src.evaluation.evaluation import evaluate_model, plot_confusion_matrix
+from src.features.features import extract_embeddings, tsne_plot, pca_plot
 
 PREPROCOUTPUT_TRAIN = 'data/processed/train/'
 PREPROCOUTPUT_TEST = 'data/processed/test/'
@@ -30,7 +31,6 @@ def main():
     validate_data(x_train, y_train)
     validate_data(x_test, y_test)
 
-
     # Preprocess
     pp_x_train, pp_y_train = preprocess_data(x_train, y_train)
     pp_x_test, pp_y_test = preprocess_data(x_test, y_test)
@@ -45,7 +45,6 @@ def main():
     x_test_tensor = torch.tensor(pp_x_test, dtype=torch.float32).permute(0, 3, 1, 2)
     y_test_tensor = torch.tensor(np.argmax(pp_y_test, axis=1), dtype=torch.long)
 
-
     # Create DataLoader
     train_dataset = TensorDataset(x_train_tensor, y_train_tensor)
     train_loader = DataLoader(train_dataset, batch_size=config["model"]["batch_size"], shuffle=True)
@@ -57,6 +56,17 @@ def main():
     # Evaluate
     acc, cm = evaluate_model(model, x_test_tensor, y_test_tensor)
     plot_confusion_matrix(cm, save_path="reports/figures/confusion_matrix.png")
+
+    # Extract features
+    embeddings = extract_embeddings(model, x_test_tensor[:1000])
+    labels_subset = y_test_tensor[:1000].numpy()
+
+    # Save features
+    np.savez("reports/embeddings/embeddings.npz", embeddings=embeddings, labels=labels_subset)
+
+    # Visualize
+    tsne_plot(embeddings, labels_subset)
+    pca_plot(embeddings, labels_subset)
 
     # Save model
     save_model(model, config["model"]["save_path"])
