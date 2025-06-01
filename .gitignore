@@ -22,3 +22,6 @@ logs/
 *.npy
 *.png
 *.npz
+
+#project egg folder ignore
+mlops_project.egg-info/
