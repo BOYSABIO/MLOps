@@ -1,148 +1,99 @@
-# MNIST Number Detection
+# MNIST Digit Classifier - MLOps Pipeline (PyTorch)
 
-This repository provides a modular, production-quality MLOps pipeline for handwritten digit recognition using the MNIST dataset. The system predicts digits from 0 to 9 using a deep learning model built with TensorFlow/Keras, structured for scalability, reproducibility, and clarity.
+This project implements a full MLOps pipeline for classifying handwritten digits from the MNIST dataset using a Convolutional Neural Network (CNN) built with PyTorch.
 
-⸻
+---
 
-🚦 Project Status
-
-Phase 1: MLOps Foundations and Modularization
-- ✅ Jupyter notebook translated into modular, testable Python scripts
-- ✅ End-to-end pipeline including:
-- Data ingestion
-- Validation
-- Preprocessing
-- Model training
-- Evaluation
-- Inference
-- ✅ Config-driven pipeline via config.yaml
-- ✅ Unit tests implemented with pytest
-- ✅ Reproducible environments using environment.yml
-
-Next Steps:
-- Integrate MLflow or W&B for experiment tracking
-- Add GitHub Actions for CI/CD automation
-- Migrate to Hydra for dynamic configuration management
-
-⸻
-
-<pre><code>## 📁 Repository Structure
+## Project Structure
 
 ```
-.
-├── README.md
-├── config.yaml / config2.yaml        # Configuration files
-├── environment.yml                   # Conda environment definition
 ├── data/
-├── models/                           # Saved model weights (.h5, .pth)
+│   ├── raw/                  # Raw input data
+│   ├── processed/            # Preprocessed train/test splits
+│   └── inference/            # New data for inference and prediction results
+├── models/                   # Saved PyTorch models
 ├── reports/
-├── docs/                             # Guidelines and brainstorm notes
-├── notebooks/
+│   ├── figures/              # Evaluation plots (confusion matrix, t-SNE, PCA)
+│   └── embeddings/           # Saved model embeddings
 ├── src/
-│   ├── data_load/                    # Data loading utilities
-│   ├── data_preprocess/             # Preprocessing steps (e.g. normalization)
-│   ├── data_validation/             # Input checks and schema validation
-│   ├── features/                    # Feature engineering if needed
-│   ├── model/                       # Model definition and training
-│   ├── inference/                   # Batch inference logic
-│   ├── evaluation/                  # Evaluation metrics
-│   ├── utils/                       # Logging configuration
-│   └── main.py                      # Pipeline orchestration
-├── tests/                            # Unit tests for all modules
+│   ├── data_load/            # Load and prepare MNIST data
+│   ├── data_preprocess/      # Preprocessing functions (normalize, reshape, encode)
+│   ├── data_validation/      # Data schema and integrity checks
+│   ├── model/                # PyTorch model and training logic
+│   ├── evaluation/           # Accuracy and confusion matrix evaluation
+│   ├── features/             # Feature extraction and visualizations
+│   ├── inference/            # Inference scripts for new input
+│   └── utils/                # Logging configuration
+├── src/draw_and_infer.py     # Create new data, save & predict
+├── src/main.py               # Entry-point to run the pipeline
+├── config.yaml               # Model and pipeline configuration
+└── README.md                 # This file
 ```
-</code></pre>
 
+---
 
+## Getting Started
 
-⸻
+### Step 1: Create and activate the environment
 
-🧠 Problem Description
+```bash
+conda create -n MNIST_NUM_DETECT python=3.9
+conda activate MNIST_NUM_DETECT
+pip install -r requirements.txt
+```
 
-The task is to recognize handwritten digits from grayscale images (28x28 pixels) in the MNIST dataset. The pipeline trains a Convolutional Neural Network (CNN) to classify each image into one of 10 digit classes (0 through 9).
+### Step 2: Run the pipeline
 
-Model Summary:
-- 3 convolutional layers with batch normalization and dropout
-- Fully connected dense layers
-- Output: softmax for 10-class classification
-- Optimizer: Adam | Loss: Categorical Crossentropy
-- Accuracy: >99% on training / >98% on validation
+```bash
+# Full run (data + train + evaluate)
+python -m src.main --stage all --config config.yaml
 
-⸻
+# Only data processing
+python -m src.main --stage data --config config.yaml
 
-🧪 Pipeline Modules
+# Only model training (if preprocessed data exists)
+python -m src.main --stage train --config config.yaml
 
-1. Data Loading (src/data_load/data_loader.py)
-- Loads data stored in .npy format
-- Reads split configuration (train/test) from YAML config
+# Inference with live drawing window
+python -m src.main --stage infer --config config.yaml
+```
 
-2. Preprocessing (src/data_preprocess/data_preprocessing.py)
-- Normalizes pixel values (0–255 → 0–1)
-- Reshapes inputs and one-hot encodes labels
+---
 
-3. Data Validation (src/data_validation/validation.py)
-- Validates input format, shape, and missing values
-- Raises warnings or errors depending on severity
+## Draw and Predict Digits
 
-4. Model Definition (src/model/model.py)
-- Defines a CNN using Keras Functional API
-- Modular structure for easy architectural changes
+When you run `--stage infer`, a window will open where you can draw a digit.
 
-5. Evaluation (src/evaluation/evaluation.py)
-- Computes performance metrics (accuracy, loss)
-- Can be extended with confusion matrices, etc.
+- Press **Space** to predict.
+- Press **C** to clear.
+- Press **ESC** to exit.
 
-6. Inference (src/inference/inference.py)
-- Loads model and preprocessing pipeline
-- Performs predictions on new data inputs
+Predictions and drawing are logged and optionally saved.
 
-7. Testing (tests/)
-- Unit tests for each pipeline component
-- Ensures reliability and simplifies future changes
+---
 
-⸻
+## Visualizations
 
-⚙️ Configuration and Reproducibility
-- config.yaml: Defines data paths, hyperparameters, output paths
-- environment.yml: Sets up all dependencies for reproducible runs
-- Version-controlled artifacts (models, data, logs)
+- **Confusion Matrix:** `reports/figures/confusion_matrix.png`
+- **t-SNE Plot:** `reports/figures/tsne_plot.png`
+- **PCA Plot:** `reports/figures/pca_plot.png`
 
-⸻
+---
 
-🚀 Getting Started
-	1.	Set up the environment
+## Model
 
-conda env create -f environment.yml
-conda activate mnist-pipeline
+- CNN implemented in PyTorch with:
+  - 3 Conv2D layers + BatchNorm
+  - Dropout for regularization
+  - Flatten + Fully connected layers
+  - Optimized for GPU use (if available)
 
+---
 
-	2.	Run the full pipeline
+## Outputs
 
-python -m src.main --config config.yaml --stage all
+- `models/pytorch_mnist_model.pth` – saved PyTorch model
+- `reports/embeddings/embeddings.npz` – feature embeddings for visual analysis
+- `data/inference/` – input/output for new predictions
 
-
-	3.	Run the unit tests
-
-pytest
-
-
-
-⸻
-
-📚 Notes for Teaching and Reuse
-
-This project is designed for academic use, showcasing how to move from notebook-based prototyping to modular, testable ML systems using MLOps best practices.
-
-⸻
-
-👩‍💻 Authors
-
-Project developed as part of an academic MLOps course
-MNIST dataset courtesy of Yann LeCun and the NYU team
-Inspired by industry-standard MLOps tools and workflows
-
-⸻
-
-📜 License
-
-For educational and non-commercial use only.
-See LICENSE for more details.
+---

@@ -1,6 +1,7 @@
 # Byte-compiled files
 __pycache__/
 *.py[cod]
+*.pytest_cache
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
@@ -18,5 +19,6 @@ logs/
 .vscode/
 .DS_Store
 
-# Large Files
-data/processed/train/
+*.npy
+*.png
+*.npz
