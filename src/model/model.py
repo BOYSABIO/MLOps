@@ -1,87 +1,72 @@
-import os
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 import logging
-import numpy as np
-from keras.models import Model, load_model
-from keras.layers import Input, Conv2D, BatchNormalization, Dropout, Flatten, Dense
-from keras.optimizers import Adam
-from keras.callbacks import EarlyStopping
+import os
 
-def build_model(input_shape=(28, 28, 1), num_classes=10) -> Model:
+def get_device():
     """
-    Build a CNN model for image classification.
+    Automatically select the appropriate device (MPS for Mac, CUDA for Nvidia, CPU fallback).
     """
-    logging.info(f"Building model with input shape {input_shape} and {num_classes} classes")
-    inputs = Input(shape=input_shape)
+    if torch.backends.mps.is_available():
+        return torch.device("mps")
+    elif torch.cuda.is_available():
+        return torch.device("cuda")
+    else:
+        return torch.device("cpu")
 
-    x = Conv2D(32, kernel_size=(3, 3), activation='relu', padding='same')(inputs)
-    x = BatchNormalization()(x)
-    x = Dropout(0.2)(x)
 
-    x = Conv2D(64, kernel_size=(3, 3), activation='relu', padding='same')(x)
-    x = BatchNormalization()(x)
-    x = Dropout(0.3)(x)
+class CNNModel(nn.Module):
+    def __init__(self, num_classes=10):
+        super(CNNModel, self).__init__()
+        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
+        self.dropout = nn.Dropout(0.3)
+        self.fc1 = nn.Linear(64 * 28 * 28, 128)
+        self.fc2 = nn.Linear(128, num_classes)
 
-    x = Flatten()(x)
-    x = Dense(128, activation='relu')(x)
-    x = Dropout(0.5)(x)
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        x = F.relu(self.conv2(x))
+        x = self.dropout(x)
+        x = x.reshape(x.size(0), -1)  # safe flatten for non-contiguous # flatten
+        x = F.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x
 
-    outputs = Dense(num_classes, activation='softmax')(x)
+def train_model(model, train_loader, config):
+    device=get_device()
+    model.to(device)
+    criterion = nn.CrossEntropyLoss()
+    optimizer = torch.optim.Adam(model.parameters(), lr=config["model"].get("learning_rate", 1e-3))
+    
+    epochs = config["model"]["epochs"]
+    logging.info(f"Training on {device} for {epochs} epochs")
 
-    model = Model(inputs=inputs, outputs=outputs)
+    model.train()
+    for epoch in range(epochs):
+        running_loss = 0.0
+        for images, labels in train_loader:
+            images, labels = images.to(device), labels.to(device)
+            optimizer.zero_grad()
+            outputs = model(images)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+            running_loss += loss.item()
+        logging.info(f"Epoch [{epoch + 1}/{epochs}], Loss: {running_loss:.4f}")
     return model
 
-def compile_model(model: Model) -> Model:
-    """
-    Compile the model with loss, optimizer, and metrics.
-    """
-    model.compile(optimizer=Adam(), loss='categorical_crossentropy', metrics=['accuracy'])
-    logging.info("Model compiled successfully")
+def save_model(model, path):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    torch.save(model.state_dict(), path)
+    logging.info(f"Model saved to {path}")
+
+def load_model(path, num_classes=10):
+    device=get_device()
+    model = CNNModel(num_classes)
+    model.load_state_dict(torch.load(path, map_location=device))
+    model.to(device)
+    model.eval()
+    logging.info(f"Model loaded from {path}")
     return model
-
-def train_model(model: Model, x_train: np.ndarray, y_train: np.ndarray, config: dict) -> Model:
-    """
-    Train the CNN model using parameters from config.
-    """
-    try:
-        batch_size = config["model"]["batch_size"]
-        epochs = config["model"]["epochs"]
-        val_split = config.get("model", {}).get("val_split", 0.2)
-
-        logging.info(f"Training model: batch_size={batch_size}, epochs={epochs}, val_split={val_split}")
-        model.fit(
-            x_train, y_train,
-            batch_size=batch_size,
-            epochs=epochs,
-            validation_split=val_split,
-            verbose=2,
-            callbacks=[EarlyStopping(patience=3, restore_best_weights=True)]
-        )
-        logging.info("Model training completed")
-        return model
-    except Exception as e:
-        logging.error("Error during model training", exc_info=True)
-        raise
-
-def save_model(model: Model, path: str):
-    """
-    Save the model to the specified path.
-    """
-    try:
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        model.save(path)
-        logging.info(f"Model saved to {path}")
-    except Exception as e:
-        logging.error("Failed to save model", exc_info=True)
-        raise
-
-def load_existing_model(path: str) -> Model:
-    """
-    Load a model from a specified path.
-    """
-    try:
-        model = load_model(path)
-        logging.info(f"Model loaded from {path}")
-        return model
-    except Exception as e:
-        logging.error("Failed to load model", exc_info=True)
-        raise

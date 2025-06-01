@@ -1,38 +1,37 @@
-# src/evaluation.py
-
+import os
+import torch
 import numpy as np
-from sklearn.metrics import accuracy_score, confusion_matrix
+import logging
 import matplotlib.pyplot as plt
 import seaborn as sns
-import logging
-import os
+from sklearn.metrics import accuracy_score, confusion_matrix
 
-def evaluate_model(model, x_test: np.ndarray, y_test: np.ndarray):
-    """
-    Evaluate the model on test data and return accuracy and confusion matrix.
 
-    Args:
-        model: Trained model with a .predict() method
-        x_test: Test data (images)
-        y_test: True labels (one-hot encoded or integers)
 
-    Returns:
-        Tuple: (accuracy, confusion_matrix)
-    """
-    try:
-        predictions = model.predict(x_test)
-        predictions = np.argmax(predictions, axis=1)
-        true_labels = np.argmax(y_test, axis=1)
 
-        acc = accuracy_score(true_labels, predictions)
-        cm = confusion_matrix(true_labels, predictions)
+def evaluate_model(model, x_test, y_test):
+    logging.info("Evaluating model...")
 
-        logging.info(f"Model evaluation completed. Accuracy {acc:.4f}")
-        return acc, cm
-    except Exception as e:
-        logging.error("Error during model evaluation", exc_info = True)
+    model.eval()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
     
+    with torch.no_grad():
+        x_test = x_test.to(device)
+        y_test = y_test.to(device)
 
+        outputs = model(x_test)
+        _, predicted = torch.max(outputs, 1)
+
+        y_true = y_test.cpu().numpy()
+        y_pred = predicted.cpu().numpy()
+
+        acc = accuracy_score(y_true, y_pred)
+        cm = confusion_matrix(y_true, y_pred)
+
+        logging.info(f"Evaluation complete - Accuracy: {acc:.4f}")
+        return acc, cm
+    
 def plot_confusion_matrix(cm, labels=None, title="Confusion Matrix", save_path="reports/figures/confusion_matrix.png"):
     """
     Plot & save a confusion matrix heatmap to reports/figures/confusion_matrix.png
