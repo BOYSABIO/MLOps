@@ -5,6 +5,7 @@ import numpy as np
 import os
 import logging
 import torch
+import torch.nn.functional as F
 
 logger = logging.getLogger(__name__)
 
@@ -18,10 +19,6 @@ def get_device():
         return torch.device("cuda")
     else:
         return torch.device("cpu")
-
-import logging
-import torch
-import torch.nn.functional as F
 
 def extract_embeddings(model, data, device='cpu'):
     """
