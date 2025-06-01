@@ -36,10 +36,9 @@ This project implements a full MLOps pipeline for classifying handwritten digits
 
 ### Step 1: Create and activate the environment
 
-```bash
-conda create -n MNIST_NUM_DETECT python=3.9
+```
+conda env create -f environment.yaml
 conda activate MNIST_NUM_DETECT
-pip install -r requirements.txt
 ```
 
 ### Step 2: Run the pipeline
