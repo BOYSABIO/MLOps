@@ -4,6 +4,9 @@ import torch.nn.functional as F
 import logging
 import os
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+
 def get_device():
     """
     Automatically select the appropriate device (MPS for Mac, CUDA for Nvidia, CPU fallback).
@@ -15,8 +18,11 @@ def get_device():
     else:
         return torch.device("cpu")
 
-  
+
 class CNNModel(nn.Module):
+    """
+    A simple 3-layer CNN for grayscale image classification (e.g., MNIST).
+    """
     def __init__(self, num_classes=10):
         super(CNNModel, self).__init__()
         self.conv1 = nn.Conv2d(1, 32, 3, padding=1)
@@ -43,40 +49,86 @@ class CNNModel(nn.Module):
         return self.fc2(x)
 
 
-
 def train_model(model, train_loader, config):
-    device=get_device()
-    model.to(device)
-    criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=config["model"].get("learning_rate", 1e-3))
-    
-    epochs = config["model"]["epochs"]
-    logging.info(f"Training on {device} for {epochs} epochs")
+    """
+    Trains a CNN model using CrossEntropyLoss and Adam optimizer.
 
-    model.train()
-    for epoch in range(epochs):
-        running_loss = 0.0
-        for images, labels in train_loader:
-            images, labels = images.to(device), labels.to(device)
-            optimizer.zero_grad()
-            outputs = model(images)
-            loss = criterion(outputs, labels)
-            loss.backward()
-            optimizer.step()
-            running_loss += loss.item()
-        logging.info(f"Epoch [{epoch + 1}/{epochs}], Loss: {running_loss:.4f}")
-    return model
+    Args:
+        model: CNNModel instance
+        train_loader: DataLoader for training data
+        config: dict with 'model' keys: 'epochs', 'learning_rate'
+
+    Returns:
+        Trained model
+    """
+    try:
+        device = get_device()
+        model.to(device)
+        criterion = nn.CrossEntropyLoss()
+        optimizer = torch.optim.Adam(model.parameters(), lr=config["model"].get("learning_rate", 1e-3))
+        epochs = config["model"]["epochs"]
+
+        logging.info(f"Training on {device} for {epochs} epochs")
+        model.train()
+
+        for epoch in range(epochs):
+            running_loss = 0.0
+            for images, labels in train_loader:
+                images, labels = images.to(device), labels.to(device)
+
+                optimizer.zero_grad()
+                outputs = model(images)
+                loss = criterion(outputs, labels)
+                loss.backward()
+                optimizer.step()
+
+                running_loss += loss.item()
+
+            logging.info(f"Epoch [{epoch + 1}/{epochs}], Loss: {running_loss:.4f}")
+
+        return model
+
+    except Exception as e:
+        logging.error("Model training failed", exc_info=True)
+        raise RuntimeError("Training process failed") from e
+
 
 def save_model(model, path):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    torch.save(model.state_dict(), path)
-    logging.info(f"Model saved to {path}")
+    """
+    Saves the model weights to disk.
+
+    Args:
+        model: Trained model
+        path: File path for saving weights
+    """
+    try:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        torch.save(model.state_dict(), path)
+        logging.info(f"Model saved to {path}")
+    except Exception as e:
+        logging.error("Saving model failed", exc_info=True)
+        raise IOError("Failed to save model") from e
+
 
 def load_model(path, num_classes=10):
-    device=get_device()
-    model = CNNModel(num_classes)
-    model.load_state_dict(torch.load(path, map_location=device))
-    model.to(device)
-    model.eval()
-    logging.info(f"Model loaded from {path}")
-    return model
+    """
+    Loads model weights from disk.
+
+    Args:
+        path: Path to .pt/.pth file
+        num_classes: Output dimension of the model (default=10)
+
+    Returns:
+        A CNNModel instance with loaded weights
+    """
+    try:
+        device = get_device()
+        model = CNNModel(num_classes)
+        model.load_state_dict(torch.load(path, map_location=device))
+        model.to(device)
+        model.eval()
+        logging.info(f"Model loaded from {path}")
+        return model
+    except Exception as e:
+        logging.error("Loading model failed", exc_info=True)
+        raise RuntimeError("Failed to load model") from e

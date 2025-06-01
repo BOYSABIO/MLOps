@@ -5,39 +5,58 @@ import logging
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import accuracy_score, confusion_matrix
- 
+
 def evaluate_model(model, x_test, y_test):
-    logging.info("Evaluating model...")
-
-    model.eval()
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model.to(device)
-    
-    with torch.no_grad():
-        x_test = x_test.to(device)
-        y_test = y_test.to(device)
-
-        outputs = model(x_test)
-        _, predicted = torch.max(outputs, 1)
-
-        y_true = y_test.cpu().numpy()
-        y_pred = predicted.cpu().numpy()
-
-        acc = accuracy_score(y_true, y_pred)
-        cm = confusion_matrix(y_true, y_pred)
-
-        logging.info(f"Evaluation complete - Accuracy: {acc:.4f}")
-        return acc, cm
-    
-def plot_confusion_matrix(cm, labels=None, title="Confusion Matrix", save_path="reports/figures/confusion_matrix.png"):
     """
-    Plot & save a confusion matrix heatmap to reports/figures/confusion_matrix.png
+    Evaluates the model on the given test dataset.
 
     Args:
-        cm: Confusion matrix (2D array)
-        labels: List of label names
-        title: Plot title
-        save_path: File path where figure will be saved (default: reports/figures/confusion_matrix.png)
+        model: Trained PyTorch model.
+        x_test: Input features (torch.Tensor).
+        y_test: Ground truth labels (torch.Tensor).
+
+    Returns:
+        Tuple of (accuracy, confusion_matrix)
+    """
+    logging.info("Evaluating model...")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
+    model.eval()
+
+    try:
+        with torch.no_grad():
+            x_test = x_test.to(device)
+            y_test = y_test.to(device)
+
+            outputs = model(x_test)
+            if outputs.ndim == 1 or outputs.size(1) == 1:
+                logging.warning("Model output may not be multi-class logits")
+            
+            _, predicted = torch.max(outputs, 1)
+
+            y_true = y_test.cpu().numpy()
+            y_pred = predicted.cpu().numpy()
+
+            acc = accuracy_score(y_true, y_pred)
+            cm = confusion_matrix(y_true, y_pred)
+
+            logging.info(f"Evaluation complete - Accuracy: {acc:.4f}")
+            return acc, cm
+
+    except Exception as e:
+        logging.error("Model evaluation failed", exc_info=True)
+        raise RuntimeError("Failed to evaluate model") from e
+
+
+def plot_confusion_matrix(cm, labels=None, title="Confusion Matrix", save_path="reports/figures/confusion_matrix.png"):
+    """
+    Plots and saves a confusion matrix heatmap.
+
+    Args:
+        cm: Confusion matrix (2D numpy array).
+        labels: List of label names.
+        title: Title for the heatmap.
+        save_path: Where to save the image.
     """
     try:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
@@ -49,10 +68,11 @@ def plot_confusion_matrix(cm, labels=None, title="Confusion Matrix", save_path="
         plt.title(title)
         plt.xlabel("Predicted")
         plt.ylabel("Actual")
-    
+
+        plt.tight_layout()
         plt.savefig(save_path)
         plt.close()
-        logging.info(f"Confusion Matrix Plot saved to {save_path}")
+        logging.info(f"Confusion matrix plot saved to {save_path}")
     except Exception as e:
-        logging.error("Failed to save confusion matrix plot", exc_info=True)
-        raise
+        logging.error("Failed to plot/save confusion matrix", exc_info=True)
+        raise RuntimeError("Failed to generate confusion matrix plot") from e
