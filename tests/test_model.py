@@ -1,7 +1,7 @@
 import pytest
 import torch
 from torch.utils.data import DataLoader, TensorDataset
-from src.model.model_pytorch import CNNModel, train_model
+from src.model.model import CNNModel, train_model
 
 def test_model_forward_pass():
     model = CNNModel()

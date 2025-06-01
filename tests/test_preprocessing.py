@@ -1,6 +1,4 @@
 import pytest
-import sys
-import os
 import numpy as np
 
 from src.data_preprocess.data_preprocessing import (

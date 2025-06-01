@@ -2,6 +2,7 @@ import pytest
 import numpy as np
 from src.data_validation.validation import validate_data
 
+
 def test_valid_data_passes():
     x = np.random.rand(100, 28, 28)
     y = np.eye(10)[np.random.randint(0, 10, 100)]  # one-hot

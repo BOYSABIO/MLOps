@@ -1,7 +1,8 @@
 import pytest
-import os
 import numpy as np
 from src.data_load.data_loader import load_data
+import os
+
 
 def test_load_data_shapes():
     (x_train, y_train), (x_test, y_test) = load_data()

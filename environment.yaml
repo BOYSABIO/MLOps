@@ -1,4 +1,4 @@
-name: tf_clean_env
+name: MNIST_NUM_DETECT
 channels:
   - pytorch
   - conda-forge
@@ -16,5 +16,7 @@ dependencies:
   - pytorch
   - torchvision
   - torchaudio
+  - pytest
   - pip:
       - seaborn
+      - -e .
