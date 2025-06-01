@@ -1,6 +1,5 @@
 import pytest
 import numpy as np
-import sys
 
 from src.inference.inference import load_model, load_and_preprocess_data, predict
 

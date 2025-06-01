@@ -1,7 +1,7 @@
 import pytest
 import torch
-from src.model.model_pytorch import CNNModel
-from src.evaluation.evaluation_pytorch import evaluate_model
+from src.model.model import CNNModel
+from src.evaluation.evaluation import evaluate_model
 
 def test_evaluate_model_returns_metrics():
     model = CNNModel()

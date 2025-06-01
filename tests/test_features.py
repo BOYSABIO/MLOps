@@ -2,6 +2,7 @@ import pytest
 import numpy as np
 from src.features.features import flatten_images
 
+
 def test_flatten_images():
     # Create dummy input of shape (batch_size, height, width)
     dummy_images = np.random.rand(5, 28, 28)
