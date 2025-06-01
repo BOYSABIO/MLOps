@@ -30,7 +30,7 @@ def main():
     # Data Validation
     validate_data(x_train, y_train)
     validate_data(x_test, y_test)
-
+ 
     # Preprocess
     pp_x_train, pp_y_train = preprocess_data(x_train, y_train)
     pp_x_test, pp_y_test = preprocess_data(x_test, y_test)

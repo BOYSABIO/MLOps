@@ -5,7 +5,7 @@ import logging
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import accuracy_score, confusion_matrix
-
+ 
 def evaluate_model(model, x_test, y_test):
     logging.info("Evaluating model...")
 

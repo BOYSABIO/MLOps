@@ -6,7 +6,7 @@ import os
 import logging
 import torch
 import torch.nn.functional as F
-
+ 
 logger = logging.getLogger(__name__)
 
 def get_device():

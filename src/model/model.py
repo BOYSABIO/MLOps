@@ -15,7 +15,7 @@ def get_device():
     else:
         return torch.device("cpu")
 
- 
+  
 class CNNModel(nn.Module):
     def __init__(self, num_classes=10):
         super(CNNModel, self).__init__()

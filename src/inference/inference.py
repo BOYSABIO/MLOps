@@ -20,7 +20,7 @@ def setup_logging():
         format="%(asctime)s - %(levelname)s - %(message)s"
     )
 
- 
+  
 def load_model(model_path, device):
     model = CNNModel()
     model.load_state_dict(torch.load(model_path, map_location=device))
