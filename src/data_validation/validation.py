@@ -1,7 +1,13 @@
-import numpy as np
 import logging
+import numpy as np
 
-def validate_data(x: np.ndarray, y: np.ndarray, expected_shape=(28, 28), num_classes=10):
+
+def validate_data(
+    x: np.ndarray,
+    y: np.ndarray,
+    expected_shape=(28, 28),
+    num_classes=10
+):
     """
     Validates input image and label data.
 
@@ -23,10 +29,14 @@ def validate_data(x: np.ndarray, y: np.ndarray, expected_shape=(28, 28), num_cla
 
         # Image shape checks
         if x.ndim != 3:
-            raise ValueError(f"x should have 3 dimensions (N, H, W), got {x.ndim}")
+            raise ValueError(
+                f"x should have 3 dimensions (N, H, W), got {x.ndim}"
+            )
 
         if x.shape[1:] != expected_shape:
-            raise ValueError(f"Expected image shape {expected_shape}, got {x.shape[1:]}")
+            raise ValueError(
+                f"Expected image shape {expected_shape}, got {x.shape[1:]}"
+            )
 
         # Label checks
         if y.ndim == 1:
@@ -34,24 +44,30 @@ def validate_data(x: np.ndarray, y: np.ndarray, expected_shape=(28, 28), num_cla
                 raise ValueError("1D label array should contain integers")
         elif y.ndim == 2:
             if y.shape[1] != num_classes:
-                raise ValueError(f"Expected one-hot with {num_classes} classes, got {y.shape[1]}")
+                raise ValueError(
+                    f"Expected one-hot with {num_classes} classes, "
+                    f"got {y.shape[1]}"
+                )
             if not np.all((y == 0) | (y == 1)):
                 raise ValueError("One-hot labels must contain only 0 or 1")
             if not np.allclose(np.sum(y, axis=1), 1):
                 raise ValueError("Each one-hot encoded label must sum to 1")
         else:
-            raise ValueError("y should be either 1D (class indices) or 2D (one-hot)")
+            raise ValueError(
+                "y should be either 1D (class indices) or 2D (one-hot)"
+            )
 
         # Check for NaNs or infinite values
         if np.isnan(x).any() or np.isnan(y).any():
             raise ValueError("Input data contains NaN values")
 
         if not np.isfinite(x).all() or not np.isfinite(y).all():
-            raise ValueError("Input data contains non-finite values (inf or -inf)")
+            raise ValueError(
+                "Input data contains non-finite values (inf or -inf)"
+            )
 
         logging.info("Data validation passed.")
 
-
     except Exception as e:
-        logging.error("Data validation failed {e}", exc_info=True)
+        logging.error("Data validation failed: %s", e, exc_info=True)
         raise

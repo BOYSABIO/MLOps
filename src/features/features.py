@@ -1,18 +1,20 @@
+import os
+
+import logging
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
-import numpy as np
-import os
-import logging
 import torch
 import torch.nn.functional as F
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+
 def get_device():
     """
-    Automatically select the appropriate device (MPS for Mac, CUDA for Nvidia, CPU fallback).
+    Automatically select the appropriate device (MPS for Mac, CUDA for Nvidia,
+    CPU fallback).
     """
     if torch.backends.mps.is_available():
         return torch.device("mps")
@@ -55,7 +57,7 @@ def extract_embeddings(model, data, device='cpu'):
 
             embeddings = x.cpu().numpy()
 
-            logger.info(f"Extracted embeddings shape: {embeddings.shape}")
+            logger.info("Extracted embeddings shape: %s", embeddings.shape)
             return embeddings
     except Exception as e:
         logger.error("Failed to extract embeddings", exc_info=True)
@@ -83,14 +85,20 @@ def tsne_plot(embeddings, labels, save_path="reports/figures/tsne_plot.png"):
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
         plt.figure(figsize=(8, 6))
-        scatter = plt.scatter(projected[:, 0], projected[:, 1], c=labels, cmap="tab10", s=10)
+        scatter = plt.scatter(
+            projected[:, 0],
+            projected[:, 1],
+            c=labels,
+            cmap="tab10",
+            s=10
+        )
         plt.colorbar(scatter)
         plt.title("t-SNE of CNN Feature Embeddings")
         plt.tight_layout()
         plt.savefig(save_path)
         plt.close()
 
-        logger.info(f"t-SNE plot saved to {save_path}")
+        logger.info("t-SNE plot saved to %s", save_path)
     except Exception as e:
         logger.error("Failed to generate t-SNE plot", exc_info=True)
         raise RuntimeError("t-SNE plotting failed") from e
@@ -117,14 +125,20 @@ def pca_plot(embeddings, labels, save_path="reports/figures/pca_plot.png"):
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
         plt.figure(figsize=(8, 6))
-        scatter = plt.scatter(projected[:, 0], projected[:, 1], c=labels, cmap="tab10", s=10)
+        scatter = plt.scatter(
+            projected[:, 0],
+            projected[:, 1],
+            c=labels,
+            cmap="tab10",
+            s=10
+        )
         plt.colorbar(scatter)
         plt.title("PCA of CNN Feature Embeddings")
         plt.tight_layout()
         plt.savefig(save_path)
         plt.close()
 
-        logger.info(f"PCA plot saved to {save_path}")
+        logger.info("PCA plot saved to %s", save_path)
     except Exception as e:
         logger.error("Failed to generate PCA plot", exc_info=True)
         raise RuntimeError("PCA plotting failed") from e

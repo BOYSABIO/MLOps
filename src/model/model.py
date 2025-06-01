@@ -1,15 +1,18 @@
+import os
+import logging
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import logging
-import os
+
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+
 def get_device():
     """
-    Automatically select the appropriate device (MPS for Mac, CUDA for Nvidia, CPU fallback).
+    Automatically select the appropriate device (MPS for Mac, CUDA for Nvidia,
+    CPU fallback).
     """
     if torch.backends.mps.is_available():
         return torch.device("mps")
@@ -65,10 +68,13 @@ def train_model(model, train_loader, config):
         device = get_device()
         model.to(device)
         criterion = nn.CrossEntropyLoss()
-        optimizer = torch.optim.Adam(model.parameters(), lr=config["model"].get("learning_rate", 1e-3))
+        optimizer = torch.optim.Adam(
+            model.parameters(),
+            lr=config["model"].get("learning_rate", 1e-3)
+        )
         epochs = config["model"]["epochs"]
 
-        logging.info(f"Training on {device} for {epochs} epochs")
+        logging.info("Training on %s for %d epochs", device, epochs)
         model.train()
 
         for epoch in range(epochs):
@@ -84,7 +90,10 @@ def train_model(model, train_loader, config):
 
                 running_loss += loss.item()
 
-            logging.info(f"Epoch [{epoch + 1}/{epochs}], Loss: {running_loss:.4f}")
+            logging.info(
+                "Epoch [%d/%d], Loss: %.4f",
+                epoch + 1, epochs, running_loss
+            )
 
         return model
 
@@ -104,7 +113,7 @@ def save_model(model, path):
     try:
         os.makedirs(os.path.dirname(path), exist_ok=True)
         torch.save(model.state_dict(), path)
-        logging.info(f"Model saved to {path}")
+        logging.info("Model saved to %s", path)
     except Exception as e:
         logging.error("Saving model failed", exc_info=True)
         raise IOError("Failed to save model") from e
@@ -127,7 +136,7 @@ def load_model(path, num_classes=10):
         model.load_state_dict(torch.load(path, map_location=device))
         model.to(device)
         model.eval()
-        logging.info(f"Model loaded from {path}")
+        logging.info("Model loaded from %s", path)
         return model
     except Exception as e:
         logging.error("Loading model failed", exc_info=True)

@@ -1,21 +1,39 @@
-import pytest
-import numpy as np
+"""Tests for model loading and prediction functions in inference.py."""
 
-from src.inference.inference import load_model, load_and_preprocess_data, predict
+import os
+import torch
+from src.inference.inference import load_trained_model, predict_digit
+from src.model.model import CNNModel
 
-def test_load_model():
-    model = load_model("./models/mnist-model.h5")
-    assert model is not None
 
-def test_load_and_preprocess_data():
-    data = load_and_preprocess_data("./data/raw/x_test.npy")
-    assert isinstance(data, np.ndarray)
-    assert data.shape == (10000, 28, 28)
-    assert data.max() <= 1.0
+def test_load_trained_model():
+    """Test if model loads successfully and returns a CNNModel instance."""
+    # Save a temporary model
+    model = CNNModel()
+    temp_path = "temp_model.pth"
+    torch.save(model.state_dict(), temp_path)
 
-def test_predict():
-    model = load_model("./models/mnist-model.h5")
-    data = np.random.rand(5, 28, 28)
-    predictions = predict(model, data)
-    assert len(predictions) == 5
-    assert predictions.dtype == np.int64
+    # Load the model
+    loaded_model = load_trained_model(model_path=temp_path, device="cpu")
+    assert isinstance(loaded_model, CNNModel)
+    assert not loaded_model.training  # model.eval() should be set
+
+    os.remove(temp_path)
+
+
+def test_predict_digit_output_type():
+    """Test if predict_digit returns an integer prediction."""
+    model = CNNModel()
+    model.eval()
+    dummy_input = torch.rand((1, 1, 28, 28))
+    output = predict_digit(model, dummy_input, device="cpu")
+    assert isinstance(output, int)
+
+
+def test_predict_digit_output_range():
+    """Test if predict_digit returns a digit in valid range (0–9)."""
+    model = CNNModel()
+    model.eval()
+    dummy_input = torch.rand((1, 1, 28, 28))
+    output = predict_digit(model, dummy_input, device="cpu")
+    assert 0 <= output <= 9

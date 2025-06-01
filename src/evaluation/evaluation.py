@@ -1,10 +1,10 @@
 import os
-import torch
-import numpy as np
 import logging
+import torch
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import accuracy_score, confusion_matrix
+
 
 def evaluate_model(model, x_test, y_test):
     """
@@ -31,7 +31,7 @@ def evaluate_model(model, x_test, y_test):
             outputs = model(x_test)
             if outputs.ndim == 1 or outputs.size(1) == 1:
                 logging.warning("Model output may not be multi-class logits")
-            
+
             _, predicted = torch.max(outputs, 1)
 
             y_true = y_test.cpu().numpy()
@@ -40,7 +40,7 @@ def evaluate_model(model, x_test, y_test):
             acc = accuracy_score(y_true, y_pred)
             cm = confusion_matrix(y_true, y_pred)
 
-            logging.info(f"Evaluation complete - Accuracy: {acc:.4f}")
+            logging.info("Evaluation complete - Accuracy: %.4f", acc)
             return acc, cm
 
     except Exception as e:
@@ -48,7 +48,12 @@ def evaluate_model(model, x_test, y_test):
         raise RuntimeError("Failed to evaluate model") from e
 
 
-def plot_confusion_matrix(cm, labels=None, title="Confusion Matrix", save_path="reports/figures/confusion_matrix.png"):
+def plot_confusion_matrix(
+    cm,
+    labels=None,
+    title="Confusion Matrix",
+    save_path="reports/figures/confusion_matrix.png"
+):
     """
     Plots and saves a confusion matrix heatmap.
 
@@ -64,7 +69,14 @@ def plot_confusion_matrix(cm, labels=None, title="Confusion Matrix", save_path="
         plt.figure(figsize=(8, 6))
         labels = labels if labels else list(range(cm.shape[0]))
 
-        sns.heatmap(cm, annot=True, fmt="d", cmap="Purples", xticklabels=labels, yticklabels=labels)
+        sns.heatmap(
+            cm,
+            annot=True,
+            fmt="d",
+            cmap="Purples",
+            xticklabels=labels,
+            yticklabels=labels
+        )
         plt.title(title)
         plt.xlabel("Predicted")
         plt.ylabel("Actual")
@@ -72,7 +84,7 @@ def plot_confusion_matrix(cm, labels=None, title="Confusion Matrix", save_path="
         plt.tight_layout()
         plt.savefig(save_path)
         plt.close()
-        logging.info(f"Confusion matrix plot saved to {save_path}")
+        logging.info("Confusion matrix plot saved to %s", save_path)
     except Exception as e:
         logging.error("Failed to plot/save confusion matrix", exc_info=True)
         raise RuntimeError("Failed to generate confusion matrix plot") from e

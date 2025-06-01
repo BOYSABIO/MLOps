@@ -1,7 +1,7 @@
 import logging
 import os
 import numpy as np
-from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical  # type: ignore
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -66,7 +66,9 @@ def save_preprocessed_data(images, labels, output_dir, data_type):
     Saves the preprocessed image and label arrays as .npy files.
     """
     try:
-        logger.info(f"Saving preprocessed {data_type} data to: {output_dir}")
+        logger.info(
+            "Saving preprocessed %s data to: %s", data_type, output_dir
+        )
         os.makedirs(output_dir, exist_ok=True)
 
         images_path = os.path.join(output_dir, f"{data_type}_images.npy")
@@ -75,8 +77,8 @@ def save_preprocessed_data(images, labels, output_dir, data_type):
         np.save(images_path, images)
         np.save(labels_path, labels)
 
-        logger.info(f"Images saved to: {images_path}")
-        logger.info(f"Labels saved to: {labels_path}")
+        logger.info("Images saved to: %s", images_path)
+        logger.info("Labels saved to: %s", labels_path)
     except Exception as e:
-        logger.error(f"Failed to save {data_type} data", exc_info=True)
+        logger.error("Failed to save %s data", data_type, exc_info=True)
         raise IOError(f"Could not save {data_type} data") from e
