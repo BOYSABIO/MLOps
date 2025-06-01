@@ -1,6 +1,7 @@
 import logging
 import os
 
+
 def setup_logging(log_file="logs/main_log.log"):
     """
     Configures logging with timestamp, level, and message — matching your desired format.
