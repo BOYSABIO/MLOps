@@ -34,15 +34,10 @@ Next Steps:
 ├── config.yaml / config2.yaml        # Configuration files
 ├── environment.yml                   # Conda environment definition
 ├── data/
-│   └── raw/                          # Raw input data in .npy format
-│       ├── x_train.npy, y_train.npy
-│       ├── x_test.npy, y_test.npy
 ├── models/                           # Saved model weights (.h5, .pth)
 ├── reports/
-│   └── figures/                      # Output plots and graphs
 ├── docs/                             # Guidelines and brainstorm notes
 ├── notebooks/
-│   └── MNIST_DIGITS.ipynb            # Development and model exploration
 ├── src/
 │   ├── data_load/                    # Data loading utilities
 │   ├── data_preprocess/             # Preprocessing steps (e.g. normalization)
