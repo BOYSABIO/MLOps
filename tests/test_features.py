@@ -3,32 +3,44 @@ Tests for feature extraction and embedding visualizations
 using a dummy CNN model.
 """
 
+import logging
 import os
 import shutil
-import torch
-import numpy as np
-from src.features.features import extract_embeddings
-from src.features.features import pca_plot
-from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
-import logging
+import numpy as np
+import pytest
+import torch
+from sklearn.manifold import TSNE
+
+from src.features.features import (
+    extract_embeddings,
+    pca_plot,
+    tsne_plot as real_tsne_plot
+)
 
 
-def tsne_plot(
+def tsne(
     embeddings,
     labels,
     save_path="reports/figures/tsne_plot.png",
     perplexity=30
 ):
-    """Wrapper to dynamically set perplexity for testing."""
+    """Wrapper to dynamically set perplexity for testing.
+
+    Args:
+        embeddings: Feature embeddings to visualize
+        labels: Class labels for the embeddings
+        save_path: Path to save the plot
+        perplexity: t-SNE perplexity parameter
+    """
     if perplexity >= len(embeddings):
         perplexity = len(embeddings) - 1
 
     logger = logging.getLogger(__name__)
     logger.info("Generating t-SNE plot...")
 
-    tsne = TSNE(n_components=2, perplexity=perplexity, random_state=42)
-    projected = tsne.fit_transform(embeddings)
+    tsne_model = TSNE(n_components=2, perplexity=perplexity, random_state=42)
+    projected = tsne_model.fit_transform(embeddings)
 
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
@@ -48,9 +60,14 @@ def tsne_plot(
 
 
 class SimpleModel:
-    """A minimal CNN-like model with layers used by extract_embeddings."""
+    """A minimal CNN-like model with layers used by extract_embeddings.
+
+    This model is used for testing the feature extraction functionality
+    without requiring a full CNN model implementation.
+    """
 
     def __init__(self):
+        """Initialize the model layers."""
         self.conv1 = torch.nn.Conv2d(1, 1, kernel_size=3, padding=1)
         self.bn1 = torch.nn.BatchNorm2d(1)
         self.conv2 = torch.nn.Conv2d(1, 1, kernel_size=3, padding=1)
@@ -62,11 +79,22 @@ class SimpleModel:
         self.fc1 = torch.nn.Linear(28 * 28, 10)
 
     def to(self, _device):
-        """Mock the to(device) method for compatibility."""
+        """Mock the to(device) method for compatibility.
+
+        Args:
+            _device: Device to move the model to (ignored)
+
+        Returns:
+            self: The model instance
+        """
         return self
 
     def eval(self):
-        """Mock the eval() method to simulate evaluation mode."""
+        """Mock the eval() method to simulate evaluation mode.
+
+        Returns:
+            self: The model instance
+        """
         return self
 
 
@@ -76,7 +104,6 @@ def test_extract_embeddings():
     data = torch.rand((5, 1, 28, 28))
     emb = extract_embeddings(model, data)
     assert emb.shape[0] == 5
-    print("test_extract_embeddings passed")
 
 
 def test_tsne_plot():
@@ -87,9 +114,8 @@ def test_tsne_plot():
     emb = extract_embeddings(model, data)
     os.makedirs("test_outputs", exist_ok=True)
     path = "test_outputs/tsne_test.png"
-    tsne_plot(emb, labels, save_path=path, perplexity=3)
+    tsne(emb, labels, save_path=path, perplexity=3)
     assert os.path.exists(path)
-    print("test_tsne_plot passed")
 
 
 def test_pca_plot():
@@ -102,10 +128,32 @@ def test_pca_plot():
     path = "test_outputs/pca_test.png"
     pca_plot(emb, labels, save_path=path)
     assert os.path.exists(path)
-    print("test_pca_plot passed")
 
 
 def cleanup():
     """Remove test output directory."""
     if os.path.exists("test_outputs"):
         shutil.rmtree("test_outputs")
+
+
+def test_tsne_plot_mismatched_lengths():
+    """Test t-SNE plot with mismatched embedding and label lengths."""
+    emb = np.random.rand(5, 10)
+    labels = np.array([0, 1, 2])  # Mismatch
+    with pytest.raises(RuntimeError, match="t-SNE plotting failed"):
+        real_tsne_plot(emb, labels, save_path="test_outputs/tsne_error.png")
+
+
+def test_pca_plot_mismatched_lengths():
+    """Test PCA plot with mismatched embedding and label lengths."""
+    emb = np.random.rand(5, 10)
+    labels = np.array([0, 1, 2])  # Mismatch
+    with pytest.raises(RuntimeError, match="PCA plotting failed"):
+        pca_plot(emb, labels, save_path="test_outputs/pca_error.png")
+
+
+@pytest.fixture(scope="session", autouse=True)
+def remove_outputs_after_tests():
+    """Fixture to clean up test outputs after all tests complete."""
+    yield
+    cleanup()

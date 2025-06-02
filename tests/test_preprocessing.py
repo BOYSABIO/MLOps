@@ -1,5 +1,7 @@
 """Tests for preprocessing functions in data_preprocessing.py."""
 
+import os
+import tempfile
 import numpy as np
 
 from src.data_preprocess.data_preprocessing import (
@@ -7,6 +9,7 @@ from src.data_preprocess.data_preprocessing import (
     reshape_images,
     one_hot_encode,
     preprocess_data,
+    save_preprocessed_data
 )
 
 
@@ -54,3 +57,25 @@ def test_preprocess_data_without_reshape():
     x_out, y_out = preprocess_data(x, y, reshape=False)
     assert x_out.shape == (5, 28, 28)
     assert y_out.shape == (5, 10)
+
+
+def test_save_preprocessed_data_creates_files():
+    """Ensure save_preprocessed_data writes .npy files to the given directory.
+
+    Verifies that the function creates and saves both image and label files.
+    """
+    x = np.random.rand(3, 28, 28, 1)
+    y = np.eye(10)[np.array([0, 1, 2])]
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        save_preprocessed_data(x, y, tmpdir, "test")
+        x_path = os.path.join(tmpdir, "test_images.npy")
+        y_path = os.path.join(tmpdir, "test_labels.npy")
+
+        assert os.path.isfile(x_path), "Images file not created"
+        assert os.path.isfile(y_path), "Labels file not created"
+
+        x_loaded = np.load(x_path)
+        y_loaded = np.load(y_path)
+        np.testing.assert_array_equal(x, x_loaded)
+        np.testing.assert_array_equal(y, y_loaded)

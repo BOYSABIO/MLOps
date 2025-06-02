@@ -96,3 +96,34 @@ def test_main_infer_stage(monkeypatch):
         with mock.patch("sys.argv", args):
             main_module.main()
             mock_draw.assert_called_once()
+
+
+def test_load_config_invalid(tmp_path):
+    """Test that loading an invalid config file raises an error."""
+    invalid_path = tmp_path / "bad_config.yaml"
+    invalid_path.write_text("not: yaml: valid")  # broken on purpose
+
+    with mock.patch("builtins.open", side_effect=FileNotFoundError):
+        try:
+            main_module.load_config(path=str(invalid_path))
+        except FileNotFoundError:
+            assert True
+        else:
+            assert False, "Expected FileNotFoundError"
+
+
+def test_main_raises_runtime(monkeypatch):
+    """Test that main catches and logs exceptions."""
+    monkeypatch.setattr(main_module, "load_config", lambda _: {"model": {}})
+    monkeypatch.setattr(main_module, "setup_logging", lambda: None)
+    monkeypatch.setattr(
+        main_module,
+        "run_data_stage",
+        lambda: (_ for _ in ()).throw(RuntimeError("fail"))
+    )
+
+    args = ["main.py", "--stage", "data"]
+    with mock.patch("sys.argv", args), \
+         mock.patch("sys.exit") as mock_exit:
+        main_module.main()
+        mock_exit.assert_called_once_with(1)

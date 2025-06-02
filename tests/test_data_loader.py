@@ -1,5 +1,6 @@
 """Tests for the MNIST data loader including local and fallback behaviors."""
 
+# pylint: disable=redefined-outer-name
 import os
 import shutil
 from unittest import mock
@@ -43,6 +44,7 @@ def test_saved_files_exist():
         assert os.path.exists(file), f"{file} was not found"
 
 
+# pylint: disable=unused-argument
 def test_save_raw_data_creates_files(cleanup_raw_dir):
     """Check that save_raw_data properly saves all 4 files."""
     dummy = np.zeros((10, 28, 28), dtype=np.uint8)
@@ -54,6 +56,7 @@ def test_save_raw_data_creates_files(cleanup_raw_dir):
         assert os.path.isfile(path)
 
 
+# pylint: disable=unused-argument
 def test_load_data_download_called_if_missing(monkeypatch, cleanup_raw_dir):
     """Simulate empty directory and mock keras mnist.load_data call."""
     dummy_x = np.zeros((60000, 28, 28), dtype=np.uint8)
@@ -72,6 +75,7 @@ def test_load_data_download_called_if_missing(monkeypatch, cleanup_raw_dir):
     assert data[0][0].shape == (60000, 28, 28)
 
 
+# pylint: disable=unused-argument
 def test_load_data_raises_on_corrupt_files(cleanup_raw_dir):
     """Test error handling when .npy files are corrupted or unreadable."""
     with open("data/raw/x_train.npy", "wb") as f:
@@ -84,5 +88,35 @@ def test_load_data_raises_on_corrupt_files(cleanup_raw_dir):
         load_data()
 
     print(f"ACTUAL MESSAGE: {str(exc_info.value)}")
+    assert "Failed to load MNIST dataset" in str(exc_info.value)
+    assert "Corrupted or unreadable" in str(exc_info.value.__cause__)
+
+
+def test_save_raw_data_raises_on_failure(monkeypatch):
+    """Simulate failure to save numpy arrays and check error handling."""
+    def mock_save(*args, **kwargs):
+        raise IOError("Disk write failed")
+    monkeypatch.setattr("numpy.save", mock_save)
+
+    dummy = np.zeros((10, 28, 28), dtype=np.uint8)
+    labels = np.zeros((10,), dtype=np.uint8)
+
+    with pytest.raises(RuntimeError) as exc_info:
+        save_raw_data(dummy, labels, dummy, labels)
+
+    assert "Failed to save MNIST dataset" in str(exc_info.value)
+
+
+def test_load_data_raises_on_failed_local_load(monkeypatch):
+    """Simulate failure when loading existing .npy files."""
+    monkeypatch.setattr("os.path.isfile", lambda path: True)
+
+    def mock_load(path):
+        raise IOError("Load failed")
+    monkeypatch.setattr("numpy.load", mock_load)
+
+    with pytest.raises(RuntimeError) as exc_info:
+        load_data()
+
     assert "Failed to load MNIST dataset" in str(exc_info.value)
     assert "Corrupted or unreadable" in str(exc_info.value.__cause__)
