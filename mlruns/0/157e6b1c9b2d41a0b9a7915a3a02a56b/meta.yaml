@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/157e6b1c9b2d41a0b9a7915a3a02a56b/artifacts
+end_time: 1749642915421
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 157e6b1c9b2d41a0b9a7915a3a02a56b
+run_name: enthused-pig-499
+run_uuid: 157e6b1c9b2d41a0b9a7915a3a02a56b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749642696015
+status: 4
+tags: []
+user_id: pamed

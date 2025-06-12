@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/7ef2bb29b5764cf4bbaa3ca399676bc0/artifacts
+end_time: 1749659993883
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 7ef2bb29b5764cf4bbaa3ca399676bc0
+run_name: incongruous-shrew-72
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749658787623
+status: 3
+tags: []
+user_id: pamed

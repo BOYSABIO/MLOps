@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/eac17064e54b49dfbcba9c1adf6343a1/artifacts
+end_time: 1749643900406
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: eac17064e54b49dfbcba9c1adf6343a1
+run_name: painted-foal-376
+run_uuid: eac17064e54b49dfbcba9c1adf6343a1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749643877940
+status: 4
+tags: []
+user_id: pamed

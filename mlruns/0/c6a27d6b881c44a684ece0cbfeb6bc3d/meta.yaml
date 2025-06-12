@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/c6a27d6b881c44a684ece0cbfeb6bc3d/artifacts
+end_time: 1749643264781
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c6a27d6b881c44a684ece0cbfeb6bc3d
+run_name: hilarious-hen-213
+run_uuid: c6a27d6b881c44a684ece0cbfeb6bc3d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749643254076
+status: 4
+tags: []
+user_id: pamed

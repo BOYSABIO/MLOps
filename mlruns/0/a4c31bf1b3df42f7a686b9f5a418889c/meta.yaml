@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/a4c31bf1b3df42f7a686b9f5a418889c/artifacts
+end_time: 1749646419357
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a4c31bf1b3df42f7a686b9f5a418889c
+run_name: suave-toad-226
+run_uuid: a4c31bf1b3df42f7a686b9f5a418889c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749646408108
+status: 3
+tags: []
+user_id: pamed

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/3010d04bad174b788f9c1b05263012af/artifacts
+end_time: 1749653056746
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3010d04bad174b788f9c1b05263012af
+run_name: honorable-carp-340
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749653043101
+status: 3
+tags: []
+user_id: pamed

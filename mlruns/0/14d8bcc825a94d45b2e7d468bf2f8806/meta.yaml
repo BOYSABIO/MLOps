@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/14d8bcc825a94d45b2e7d468bf2f8806/artifacts
+end_time: 1749650946431
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 14d8bcc825a94d45b2e7d468bf2f8806
+run_name: bemused-ox-877
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749650937575
+status: 4
+tags: []
+user_id: pamed

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/e38e6700cb6d4191ad0c7a975778118f/artifacts
+end_time: 1749652958788
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e38e6700cb6d4191ad0c7a975778118f
+run_name: handsome-snipe-791
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749652941885
+status: 4
+tags: []
+user_id: pamed

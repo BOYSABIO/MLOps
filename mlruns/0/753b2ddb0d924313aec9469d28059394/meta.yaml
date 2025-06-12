@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/753b2ddb0d924313aec9469d28059394/artifacts
+end_time: 1749658216475
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 753b2ddb0d924313aec9469d28059394
+run_name: judicious-bat-40
+run_uuid: 753b2ddb0d924313aec9469d28059394
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749658207493
+status: 4
+tags: []
+user_id: pamed

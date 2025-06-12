@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/71360ed8b1164dfd93b87c85af77b342/artifacts
+end_time: 1749650294395
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 71360ed8b1164dfd93b87c85af77b342
+run_name: auspicious-sloth-754
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749650286004
+status: 3
+tags: []
+user_id: pamed

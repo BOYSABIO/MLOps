@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/8c495b7dc23a4b7284b34ada1fbac2d3/artifacts
+end_time: 1749643677052
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 8c495b7dc23a4b7284b34ada1fbac2d3
+run_name: adventurous-swan-56
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749643664259
+status: 4
+tags: []
+user_id: pamed

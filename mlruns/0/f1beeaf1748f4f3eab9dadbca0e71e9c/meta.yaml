@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/f1beeaf1748f4f3eab9dadbca0e71e9c/artifacts
+end_time: 1749645352130
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f1beeaf1748f4f3eab9dadbca0e71e9c
+run_name: worried-seal-734
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749645337334
+status: 4
+tags: []
+user_id: pamed

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/3f8c1d1345c243f8ac9f24035e0fc058/artifacts
+end_time: 1749655977457
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3f8c1d1345c243f8ac9f24035e0fc058
+run_name: sneaky-wren-62
+run_uuid: 3f8c1d1345c243f8ac9f24035e0fc058
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749654683245
+status: 3
+tags: []
+user_id: pamed

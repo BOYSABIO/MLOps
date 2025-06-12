@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/d11d06f491a04e6aabb86cbb81e5b4c9/artifacts
+end_time: 1749645072649
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d11d06f491a04e6aabb86cbb81e5b4c9
+run_name: whimsical-grub-793
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749645044298
+status: 4
+tags: []
+user_id: pamed

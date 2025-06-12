@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/6853644ec5254842abfa459c90b42362/artifacts
+end_time: 1749664259576
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6853644ec5254842abfa459c90b42362
+run_name: serious-slug-365
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749664241005
+status: 3
+tags: []
+user_id: pamed

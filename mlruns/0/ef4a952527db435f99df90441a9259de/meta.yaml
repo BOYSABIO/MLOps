@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/ef4a952527db435f99df90441a9259de/artifacts
+end_time: 1749651650013
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ef4a952527db435f99df90441a9259de
+run_name: lyrical-squid-422
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749651630984
+status: 3
+tags: []
+user_id: pamed

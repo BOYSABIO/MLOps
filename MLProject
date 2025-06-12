@@ -1,0 +1,12 @@
+name: mlops_pipeline
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      step:
+        type: string
+        default: "all"
+    command: >
+      python src/main.py --step {step}

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/91229a45f6984a04b734d06c614e355a/artifacts
+end_time: 1749654063158
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 91229a45f6984a04b734d06c614e355a
+run_name: adaptable-hen-183
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749654049471
+status: 3
+tags: []
+user_id: pamed

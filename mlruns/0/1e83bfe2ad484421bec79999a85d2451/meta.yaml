@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/1e83bfe2ad484421bec79999a85d2451/artifacts
+end_time: 1749658666994
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 1e83bfe2ad484421bec79999a85d2451
+run_name: judicious-quail-211
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749658655419
+status: 3
+tags: []
+user_id: pamed

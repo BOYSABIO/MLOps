@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/a1ee22f47fd3476a9f11e4dd91e5823c/artifacts
+end_time: 1749650767285
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a1ee22f47fd3476a9f11e4dd91e5823c
+run_name: exultant-lamb-687
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749650758840
+status: 4
+tags: []
+user_id: pamed

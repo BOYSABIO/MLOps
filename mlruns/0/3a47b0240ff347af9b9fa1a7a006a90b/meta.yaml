@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/3a47b0240ff347af9b9fa1a7a006a90b/artifacts
+end_time: 1749652339036
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3a47b0240ff347af9b9fa1a7a006a90b
+run_name: delicate-eel-60
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749652326175
+status: 3
+tags: []
+user_id: pamed

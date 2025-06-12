@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/5556088604ac40608b6b4bbad8a91df5/artifacts
+end_time: 1749653667288
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5556088604ac40608b6b4bbad8a91df5
+run_name: big-fox-620
+run_uuid: 5556088604ac40608b6b4bbad8a91df5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749653610108
+status: 4
+tags: []
+user_id: pamed

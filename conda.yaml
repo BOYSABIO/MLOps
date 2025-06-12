@@ -1,0 +1,27 @@
+name: mlops_pipeline_env
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - scipy
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pyyaml
+  - pytest
+  - pip:
+      - tensorflow==2.13.0
+      - keras==2.13.1
+      - mlflow
+      - click
+      - hydra-core==1.3.2
+      - omegaconf==2.3.0
+      - opencv-python

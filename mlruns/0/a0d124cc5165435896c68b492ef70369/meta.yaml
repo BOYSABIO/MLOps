@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/a0d124cc5165435896c68b492ef70369/artifacts
+end_time: 1749658776021
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a0d124cc5165435896c68b492ef70369
+run_name: adorable-horse-28
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749658769054
+status: 3
+tags: []
+user_id: pamed

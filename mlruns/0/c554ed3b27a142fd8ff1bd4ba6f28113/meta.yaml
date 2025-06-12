@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/c554ed3b27a142fd8ff1bd4ba6f28113/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c554ed3b27a142fd8ff1bd4ba6f28113
+run_name: rare-hare-477
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749658667015
+status: 1
+tags: []
+user_id: pamed

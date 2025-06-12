@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/bca606921ddd48f893272c8992606580/artifacts
+end_time: 1749652214293
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: bca606921ddd48f893272c8992606580
+run_name: sedate-shoat-900
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749652206276
+status: 3
+tags: []
+user_id: pamed

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/1e7fea39136a41299e404a9de0d65868/artifacts
+end_time: 1749649333058
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 1e7fea39136a41299e404a9de0d65868
+run_name: wistful-sow-675
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749649324061
+status: 3
+tags: []
+user_id: pamed

@@ -1,0 +1,11 @@
+name: data_load
+
+conda_env: ../../conda.yaml
+env_manager: conda
+
+entry_points:
+  main:
+    parameters:
+      output_path: {type: str, default: "data/raw"}
+    command: >
+      python main.py --output-path {output_path}

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/52a2d72c29334cbf9ab9b4f792385e3a/artifacts
+end_time: 1749653064878
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 52a2d72c29334cbf9ab9b4f792385e3a
+run_name: invincible-slug-7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749653056760
+status: 3
+tags: []
+user_id: pamed

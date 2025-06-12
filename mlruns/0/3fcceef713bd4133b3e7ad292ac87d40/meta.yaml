@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/3fcceef713bd4133b3e7ad292ac87d40/artifacts
+end_time: 1749664214814
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3fcceef713bd4133b3e7ad292ac87d40
+run_name: luxuriant-steed-812
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749663041890
+status: 3
+tags: []
+user_id: pamed

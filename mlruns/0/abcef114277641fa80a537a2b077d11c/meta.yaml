@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/abcef114277641fa80a537a2b077d11c/artifacts
+end_time: 1749649767635
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: abcef114277641fa80a537a2b077d11c
+run_name: whimsical-grouse-912
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749649759908
+status: 3
+tags: []
+user_id: pamed

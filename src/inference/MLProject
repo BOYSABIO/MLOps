@@ -1,0 +1,16 @@
+name: inference
+
+conda_env: ../../conda.yaml
+env_manager: conda
+
+entry_points:
+  main:
+    parameters:
+      model-path: {type: str, default: "../../models/model.pth"}
+      image-path: {type: str, default: "../../data/processed/test_images.npy"}
+      output-path: {type: str, default: "../../predictions/prediction.txt"}
+    command: >
+      python main.py 
+      --model-path {model-path}
+      --image-path {image-path}
+      --output-path {output-path}

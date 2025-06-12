@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/f58ecece67a34dfa90fba67600179dcd/artifacts
+end_time: 1749650310842
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f58ecece67a34dfa90fba67600179dcd
+run_name: bedecked-elk-4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749650294409
+status: 3
+tags: []
+user_id: pamed

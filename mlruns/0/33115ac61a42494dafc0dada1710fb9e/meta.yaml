@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/33115ac61a42494dafc0dada1710fb9e/artifacts
+end_time: 1749647731070
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 33115ac61a42494dafc0dada1710fb9e
+run_name: honorable-duck-480
+run_uuid: 33115ac61a42494dafc0dada1710fb9e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749647720124
+status: 3
+tags: []
+user_id: pamed

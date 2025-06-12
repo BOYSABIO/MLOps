@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/6252e04ccc93448d92dee4b443954532/artifacts
+end_time: 1749649333297
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6252e04ccc93448d92dee4b443954532
+run_name: casual-finch-864
+run_uuid: 6252e04ccc93448d92dee4b443954532
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749649312347
+status: 4
+tags: []
+user_id: pamed

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/0020ddff69f54056b857a332e43e84eb/artifacts
+end_time: 1749658648731
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 0020ddff69f54056b857a332e43e84eb
+run_name: thoughtful-rat-78
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749658633115
+status: 3
+tags: []
+user_id: pamed

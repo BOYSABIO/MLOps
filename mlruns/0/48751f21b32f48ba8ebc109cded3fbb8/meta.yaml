@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/48751f21b32f48ba8ebc109cded3fbb8/artifacts
+end_time: 1749651102990
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 48751f21b32f48ba8ebc109cded3fbb8
+run_name: righteous-chimp-361
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749651095053
+status: 4
+tags: []
+user_id: pamed

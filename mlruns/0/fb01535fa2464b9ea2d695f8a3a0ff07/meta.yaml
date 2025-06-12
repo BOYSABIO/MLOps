@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/fb01535fa2464b9ea2d695f8a3a0ff07/artifacts
+end_time: 1749649668621
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: fb01535fa2464b9ea2d695f8a3a0ff07
+run_name: thoughtful-chimp-508
+run_uuid: fb01535fa2464b9ea2d695f8a3a0ff07
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749649648860
+status: 4
+tags: []
+user_id: pamed

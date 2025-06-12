@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/995364f8c2cd40a1b03cdfa3d6c2add6/artifacts
+end_time: 1749648130486
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 995364f8c2cd40a1b03cdfa3d6c2add6
+run_name: smiling-carp-893
+run_uuid: 995364f8c2cd40a1b03cdfa3d6c2add6
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749648119326
+status: 3
+tags: []
+user_id: pamed

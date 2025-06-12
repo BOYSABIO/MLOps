@@ -1,0 +1,29 @@
+import os
+import logging
+import click
+from data_loader import load_data, save_raw_data
+
+# Configuración de logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+@click.command()
+@click.option("--output-path", required=True, help="Path where the .npy are saved")
+def main(output_path):
+    """
+    MLflow entry point para cargar MNIST y guardar como archivos .npy
+    """
+    try:
+        logger.info("Step: Data Load executed.")
+        logger.info(f"Saving data in: {output_path}")
+
+        (x_train, y_train), (x_test, y_test) = load_data(output_path)
+        save_raw_data(x_train, y_train, x_test, y_test, output_path)
+
+        logger.info("✅ .npy files saved successfuly.")
+    except Exception as e:
+        logger.error("❌ Data Load failed", exc_info=True)
+        raise RuntimeError("data_load failed") from e
+
+if __name__ == "__main__":
+    main()

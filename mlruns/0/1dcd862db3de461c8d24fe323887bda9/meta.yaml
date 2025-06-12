@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/1dcd862db3de461c8d24fe323887bda9/artifacts
+end_time: 1749645234222
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 1dcd862db3de461c8d24fe323887bda9
+run_name: skittish-sheep-385
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749645205996
+status: 4
+tags: []
+user_id: pamed

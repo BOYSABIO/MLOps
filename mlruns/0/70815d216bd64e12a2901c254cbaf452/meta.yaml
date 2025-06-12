@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/70815d216bd64e12a2901c254cbaf452/artifacts
+end_time: 1749657840376
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 70815d216bd64e12a2901c254cbaf452
+run_name: aged-pug-506
+run_uuid: 70815d216bd64e12a2901c254cbaf452
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749657832119
+status: 4
+tags: []
+user_id: pamed

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/ab88ceeac413425a8b048bf86f9627ac/artifacts
+end_time: 1749657966707
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ab88ceeac413425a8b048bf86f9627ac
+run_name: nosy-bass-1000
+run_uuid: ab88ceeac413425a8b048bf86f9627ac
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749657951363
+status: 4
+tags: []
+user_id: pamed

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/da2ea67d5cfd47fa91cff633d532e7c9/artifacts
+end_time: 1749660030861
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: da2ea67d5cfd47fa91cff633d532e7c9
+run_name: wistful-duck-935
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749660015311
+status: 3
+tags: []
+user_id: pamed

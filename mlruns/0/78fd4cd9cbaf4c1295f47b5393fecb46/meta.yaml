@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/78fd4cd9cbaf4c1295f47b5393fecb46/artifacts
+end_time: 1749653358139
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 78fd4cd9cbaf4c1295f47b5393fecb46
+run_name: gifted-donkey-870
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749653347395
+status: 4
+tags: []
+user_id: pamed

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/059ffef678fb40958903fb092d5a6c4d/artifacts
+end_time: 1749658787609
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 059ffef678fb40958903fb092d5a6c4d
+run_name: likeable-flea-625
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749658776037
+status: 3
+tags: []
+user_id: pamed

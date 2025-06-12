@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/0a9fc63418cc45cda113f6bfe9c95d93/artifacts
+end_time: 1749657719152
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 0a9fc63418cc45cda113f6bfe9c95d93
+run_name: sedate-bat-759
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749657705632
+status: 3
+tags: []
+user_id: pamed

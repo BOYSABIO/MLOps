@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/a776be2a65df457a98f4ffb6d51a6f3b/artifacts
+end_time: 1749645352582
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a776be2a65df457a98f4ffb6d51a6f3b
+run_name: abrasive-grub-281
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749645325785
+status: 4
+tags: []
+user_id: pamed

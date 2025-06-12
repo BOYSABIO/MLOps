@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/5885e197255947338c5bdf5a4b178e35/artifacts
+end_time: 1749653333955
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5885e197255947338c5bdf5a4b178e35
+run_name: thoughtful-doe-903
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749653326136
+status: 3
+tags: []
+user_id: pamed

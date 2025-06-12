@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/c801380ccec74db1bedac0148af55b9c/artifacts
+end_time: 1749653451861
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c801380ccec74db1bedac0148af55b9c
+run_name: worried-wren-484
+run_uuid: c801380ccec74db1bedac0148af55b9c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749653406271
+status: 4
+tags: []
+user_id: pamed

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/c652f578d3f44fe98b1793c18401557c/artifacts
+end_time: 1749647603642
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c652f578d3f44fe98b1793c18401557c
+run_name: skillful-colt-484
+run_uuid: c652f578d3f44fe98b1793c18401557c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749647592459
+status: 3
+tags: []
+user_id: pamed

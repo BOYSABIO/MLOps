@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/561498d024a64b8bbcc397f37cad61ca/artifacts
+end_time: 1749657449389
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 561498d024a64b8bbcc397f37cad61ca
+run_name: delightful-smelt-212
+run_uuid: 561498d024a64b8bbcc397f37cad61ca
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749657434379
+status: 3
+tags: []
+user_id: pamed

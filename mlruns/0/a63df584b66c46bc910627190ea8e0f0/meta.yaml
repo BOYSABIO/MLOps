@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/a63df584b66c46bc910627190ea8e0f0/artifacts
+end_time: 1749643366314
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a63df584b66c46bc910627190ea8e0f0
+run_name: ambitious-colt-951
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749643313364
+status: 4
+tags: []
+user_id: pamed

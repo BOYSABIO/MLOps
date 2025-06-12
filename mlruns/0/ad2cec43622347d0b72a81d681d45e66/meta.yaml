@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/ad2cec43622347d0b72a81d681d45e66/artifacts
+end_time: 1749663030964
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ad2cec43622347d0b72a81d681d45e66
+run_name: melodic-fox-620
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749663024596
+status: 3
+tags: []
+user_id: pamed

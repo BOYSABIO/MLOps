@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/63e3e616141f4c4e82fceab3a9a8c307/artifacts
+end_time: 1749651103200
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 63e3e616141f4c4e82fceab3a9a8c307
+run_name: unleashed-ray-675
+run_uuid: 63e3e616141f4c4e82fceab3a9a8c307
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749651076032
+status: 4
+tags: []
+user_id: pamed

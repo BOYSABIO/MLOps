@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/e58766d4e3c7498c86115d15bdb16564/artifacts
+end_time: 1749657326219
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e58766d4e3c7498c86115d15bdb16564
+run_name: enthused-loon-636
+run_uuid: e58766d4e3c7498c86115d15bdb16564
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749657316887
+status: 4
+tags: []
+user_id: pamed

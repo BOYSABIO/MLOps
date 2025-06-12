@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/f24cf27b1e6b4e38954241eaba647b69/artifacts
+end_time: 1749649578290
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f24cf27b1e6b4e38954241eaba647b69
+run_name: abundant-ray-150
+run_uuid: f24cf27b1e6b4e38954241eaba647b69
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749649556496
+status: 4
+tags: []
+user_id: pamed

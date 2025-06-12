@@ -1,0 +1,16 @@
+name: evaluation
+
+conda_env: ../../conda.yaml
+env_manager: conda
+
+entry_points:
+  main:
+    parameters:
+      model-path: {type: str, default: "../../models/model.pth"}
+      test-images-path: {type: str, default: "../../data/processed/test_images.npy"}
+      test-labels-path: {type: str, default: "../../data/processed/test_labels.npy"}
+    command: >
+      python main.py
+      --model-path {model-path}
+      --test-images-path {test-images-path}
+      --test-labels-path {test-labels-path}

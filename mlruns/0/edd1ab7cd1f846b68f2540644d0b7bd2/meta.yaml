@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/edd1ab7cd1f846b68f2540644d0b7bd2/artifacts
+end_time: 1749653326119
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: edd1ab7cd1f846b68f2540644d0b7bd2
+run_name: painted-worm-334
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749653312891
+status: 3
+tags: []
+user_id: pamed

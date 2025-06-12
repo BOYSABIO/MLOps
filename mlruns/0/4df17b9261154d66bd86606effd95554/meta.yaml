@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/4df17b9261154d66bd86606effd95554/artifacts
+end_time: 1749657097791
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 4df17b9261154d66bd86606effd95554
+run_name: grandiose-tern-701
+run_uuid: 4df17b9261154d66bd86606effd95554
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749657082137
+status: 3
+tags: []
+user_id: pamed

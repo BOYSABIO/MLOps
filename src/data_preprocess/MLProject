@@ -1,0 +1,12 @@
+name: data_preprocess
+
+conda_env: ../../conda.yaml
+env_manager: conda
+
+entry_points:
+  main:
+    parameters:
+      input_path: {type: str}
+      output_path: {type: str, default: "data/processed"}
+    command: >
+      python main.py --input-path {input_path} --output-path {output_path}

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/pamed/Downloads/MLOps-main/mlruns/0/801f7d29b53444b59749017a612821ec/artifacts
+end_time: 1749653193382
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 801f7d29b53444b59749017a612821ec
+run_name: inquisitive-fawn-528
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1749653185564
+status: 3
+tags: []
+user_id: pamed
