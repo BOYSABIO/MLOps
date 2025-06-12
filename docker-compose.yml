@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mnist-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.mlflow  # Using the MLflow-enabled Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MLFLOW_TRACKING_URI=${MLFLOW_TRACKING_URI:-http://localhost:5000}  # Default to localhost if not set
+      - MLFLOW_MODEL_NAME=${MLFLOW_MODEL_NAME:-mnist_model}
+      - MLFLOW_MODEL_STAGE=${MLFLOW_MODEL_STAGE:-Production}
+    volumes:
+      - ./src:/app/src  # For development, mount source code
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu] 
