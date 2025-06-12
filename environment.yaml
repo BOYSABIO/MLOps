@@ -13,7 +13,7 @@ dependencies:
   - scikit-learn=1.6.1
   - scipy=1.11.4
   - pytorch=2.2.2
-  - torchvision=0.15.2
+  - torchvision=0.17.2        # 🔁 Updated
   - torchaudio=2.2.2
   - pyyaml=6.0.2
   - pip=25.1.1
