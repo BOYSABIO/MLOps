@@ -20,6 +20,10 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
     bash miniconda.sh -b -p /opt/conda && \
     rm miniconda.sh
 
+# Initialize conda for bash shell
+RUN conda init bash && \
+    echo "conda activate MNIST_NUM_DETECT" >> ~/.bashrc
+
 # Copy environment files
 COPY environment.yaml .
 COPY setup.py .
@@ -30,7 +34,8 @@ RUN conda config --add channels conda-forge && \
     conda config --set channel_priority flexible
 
 # Create conda environment with CUDA-enabled PyTorch
-RUN conda create -n MNIST_NUM_DETECT python=3.10 -y && \
+RUN . /opt/conda/etc/profile.d/conda.sh && \
+    conda create -n MNIST_NUM_DETECT python=3.10 -y && \
     conda activate MNIST_NUM_DETECT && \
     conda install -y -c pytorch -c nvidia -c conda-forge \
     pytorch=2.0.1 \
@@ -49,10 +54,12 @@ RUN conda create -n MNIST_NUM_DETECT python=3.10 -y && \
     opencv-python=4.11.0.86
 
 # Make RUN commands use the new environment
-SHELL ["conda", "run", "-n", "MNIST_NUM_DETECT", "/bin/bash", "-c"]
+SHELL ["/bin/bash", "-c"]
 
 # Install additional FastAPI dependencies
-RUN pip install --no-cache-dir \
+RUN . /opt/conda/etc/profile.d/conda.sh && \
+    conda activate MNIST_NUM_DETECT && \
+    pip install --no-cache-dir \
     fastapi==0.109.2 \
     python-multipart==0.0.9 \
     uvicorn==0.27.1
@@ -64,7 +71,9 @@ COPY models/ models/
 COPY config.yaml .
 
 # Install the package in development mode
-RUN pip install -e .
+RUN . /opt/conda/etc/profile.d/conda.sh && \
+    conda activate MNIST_NUM_DETECT && \
+    pip install -e .
 
 # Set environment variables
 ENV PYTHONPATH=/app
@@ -73,4 +82,4 @@ ENV PYTHONPATH=/app
 EXPOSE 8000
 
 # Command to run the FastAPI application
-CMD ["conda", "run", "-n", "MNIST_NUM_DETECT", "uvicorn", "src.api.app:app", "--host", "0.0.0.0", "--port", "8000"] 
+CMD ["/bin/bash", "-c", "source /opt/conda/etc/profile.d/conda.sh && conda activate MNIST_NUM_DETECT && uvicorn src.api.app:app --host 0.0.0.0 --port 8000"] 
