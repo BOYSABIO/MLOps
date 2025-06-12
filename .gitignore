@@ -25,3 +25,10 @@ logs/
 
 #project egg folder ignore
 mlops_project.egg-info/
+
+# Automatically generated files
+models/
+predictions/
+outputs/
+mlruns/
+*.log
