@@ -1,7 +1,7 @@
 import logging
 import os
 import numpy as np
-from tensorflow.keras.utils import to_categorical  # type: ignore
+import torch
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -32,13 +32,17 @@ def reshape_images(images):
         raise ValueError("Invalid image shape for reshaping") from e
 
 
-def one_hot_encode(label):
+def one_hot_encode(labels, num_classes=10):
     """
-    Converts class labels into one-hot encoded vectors.
+    Converts class labels into one-hot encoded vectors using PyTorch.
     """
     try:
         logger.info("One-hot encoding labels")
-        return to_categorical(label, num_classes=10)
+        # Convert to tensor and use scatter_ for one-hot encoding
+        labels_tensor = torch.tensor(labels, dtype=torch.long)
+        one_hot = torch.zeros((labels_tensor.size(0), num_classes))
+        one_hot.scatter_(1, labels_tensor.unsqueeze(1), 1)
+        return one_hot.numpy()
     except Exception as e:
         logger.error("Failed to one-hot encode labels", exc_info=True)
         raise RuntimeError("One-hot encoding failed") from e

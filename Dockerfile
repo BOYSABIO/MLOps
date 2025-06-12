@@ -49,17 +49,13 @@ RUN . /opt/conda/etc/profile.d/conda.sh && \
     scikit-learn=1.6.1 \
     scipy=1.11.4 \
     pyyaml=6.0.2 \
-    pytest=8.3.5 \
-    tensorflow=2.13.0 \
-    opencv-python=4.11.0.86
+    pytest=8.3.5
 
-# Make RUN commands use the new environment
-SHELL ["/bin/bash", "-c"]
-
-# Install additional FastAPI dependencies
+# Install pip packages
 RUN . /opt/conda/etc/profile.d/conda.sh && \
     conda activate MNIST_NUM_DETECT && \
     pip install --no-cache-dir \
+    opencv-python==4.11.0.86 \
     fastapi==0.109.2 \
     python-multipart==0.0.9 \
     uvicorn==0.27.1
