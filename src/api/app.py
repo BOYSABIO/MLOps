@@ -41,7 +41,7 @@ async def load_model():
     try:
         model = load_trained_model(
             model_path="models/pytorch_mnist_model.pth",
-            device="cpu"
+            device="cuda" if torch.cuda.is_available() else "cpu"
         )
     except Exception as e:
         raise RuntimeError(f"Failed to load model: {str(e)}")
@@ -103,4 +103,9 @@ async def predict_digit_api(file: UploadFile = File(...)):
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
-    return {"status": "healthy", "model_loaded": model is not None} 
+    return {
+        "status": "healthy",
+        "model_loaded": model is not None,
+        "gpu_available": torch.cuda.is_available(),
+        "gpu_device": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None
+    } 
