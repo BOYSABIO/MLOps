@@ -73,7 +73,7 @@ def main():
         elif event == cv2.EVENT_LBUTTONUP:
             drawing = False
 
-    window_title = "Draw a digit (SPACE to predict | ESC to quit | C to clear)"
+    window_title = "Draw a digit\nSPACE to predict\nESC to quit\nC to clear"
     cv2.namedWindow(window_title)
     cv2.setMouseCallback(window_title, draw)
 
@@ -83,8 +83,26 @@ def main():
         # Display instructions
         cv2.putText(
             display,
-            "SPACE: Predict | ESC: Quit | C: Clear",
+            "SPACE: Predict",
             (10, 20),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.5,
+            (180, 180, 180),
+            1
+        )
+        cv2.putText(
+            display,
+            "ESC: Quit",
+            (10, 40),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.5,
+            (180, 180, 180),
+            1
+        )
+        cv2.putText(
+            display,
+            "C: Clear",
+            (10, 60),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.5,
             (180, 180, 180),
@@ -95,7 +113,7 @@ def main():
             cv2.putText(
                 display,
                 f"Prediction: {last_prediction}",
-                (10, 45),
+                (10, 260),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.8,
                 (0, 255, 0),
