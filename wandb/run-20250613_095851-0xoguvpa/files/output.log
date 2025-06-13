@@ -1,0 +1,17 @@
+2025-06-13 09:58:54 - INFO - Training on cpu for 10 epochs
+2025-06-13 10:01:04 - INFO - Epoch [1/10] | Train Loss: 0.1826 | Train Acc: 0.9458 | Val Loss: 0.0720 | Val Acc: 0.9782
+2025-06-13 10:03:07 - INFO - Epoch [2/10] | Train Loss: 0.0903 | Train Acc: 0.9732 | Val Loss: 0.0565 | Val Acc: 0.9840
+2025-06-13 10:05:30 - INFO - Epoch [3/10] | Train Loss: 0.0650 | Train Acc: 0.9811 | Val Loss: 0.0484 | Val Acc: 0.9857
+2025-06-13 10:08:02 - INFO - Epoch [4/10] | Train Loss: 0.0550 | Train Acc: 0.9834 | Val Loss: 0.0405 | Val Acc: 0.9878
+2025-06-13 10:10:24 - INFO - Epoch [5/10] | Train Loss: 0.0445 | Train Acc: 0.9869 | Val Loss: 0.0445 | Val Acc: 0.9888
+2025-06-13 10:12:21 - INFO - Epoch [6/10] | Train Loss: 0.0369 | Train Acc: 0.9885 | Val Loss: 0.0461 | Val Acc: 0.9886
+2025-06-13 10:14:34 - INFO - Epoch [7/10] | Train Loss: 0.0337 | Train Acc: 0.9891 | Val Loss: 0.0461 | Val Acc: 0.9892
+2025-06-13 10:16:33 - INFO - Epoch [8/10] | Train Loss: 0.0283 | Train Acc: 0.9910 | Val Loss: 0.0388 | Val Acc: 0.9889
+2025-06-13 10:18:23 - INFO - Epoch [9/10] | Train Loss: 0.0237 | Train Acc: 0.9925 | Val Loss: 0.0398 | Val Acc: 0.9912
+2025-06-13 10:20:44 - INFO - Epoch [10/10] | Train Loss: 0.0207 | Train Acc: 0.9931 | Val Loss: 0.0452 | Val Acc: 0.9904
+2025-06-13 10:20:44 - INFO - Evaluating model...
+2025-06-13 10:21:01 - INFO - Evaluation complete - Accuracy: 0.9890
+2025-06-13 10:21:03 - INFO - Confusion matrix plot saved to reports/figures/confusion_matrix.png
+2025-06-13 10:21:03 - INFO - Extracting features from model...
+2025-06-13 10:21:04 - INFO - Extracted embeddings shape: (1000, 128)
+2025-06-13 10:21:04 - INFO - Generating t-SNE plot...

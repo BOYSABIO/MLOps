@@ -1,0 +1,12 @@
+2025-06-12 18:46:27 - INFO - Training on cpu for 5 epochs
+2025-06-12 18:56:54 - INFO - Epoch [1/5], Loss: 0.1907, Accuracy: 0.9439
+2025-06-12 19:34:32 - INFO - Epoch [2/5], Loss: 0.0885, Accuracy: 0.9731
+2025-06-12 20:09:05 - INFO - Epoch [3/5], Loss: 0.0665, Accuracy: 0.9800
+2025-06-12 20:50:17 - INFO - Epoch [4/5], Loss: 0.0576, Accuracy: 0.9823
+2025-06-12 21:10:58 - INFO - Epoch [5/5], Loss: 0.0452, Accuracy: 0.9858
+2025-06-12 21:10:58 - INFO - Evaluating model...
+2025-06-12 21:41:28 - INFO - Evaluation complete - Accuracy: 0.9892
+2025-06-12 21:41:31 - INFO - Confusion matrix plot saved to reports/figures/confusion_matrix.png
+2025-06-12 21:41:31 - INFO - Extracting features from model...
+2025-06-12 21:41:31 - INFO - Extracted embeddings shape: (1000, 128)
+2025-06-12 21:41:31 - INFO - Generating t-SNE plot...

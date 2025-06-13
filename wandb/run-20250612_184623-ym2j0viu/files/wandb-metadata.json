@@ -1,0 +1,37 @@
+{
+  "os": "macOS-15.4.1-x86_64-i386-64bit",
+  "python": "CPython 3.12.2",
+  "startedAt": "2025-06-12T16:46:24.017720Z",
+  "args": [
+    "--stage",
+    "all"
+  ],
+  "program": "-m src.main",
+  "git": {
+    "remote": "https://github.com/BOYSABIO/MLOps.git",
+    "commit": "a6362b78ce5650edcaa9f032e4b8343867b2d2aa"
+  },
+  "email": "lucaadjei@student.ie.edu",
+  "root": "/Users/YOLO/Desktop/Term3/MLOPS/MLOPS Project/MLOps",
+  "host": "MacBook-Pro-31.local",
+  "executable": "/opt/anaconda3/bin/python",
+  "cpu_count": 4,
+  "cpu_count_logical": 8,
+  "disk": {
+    "/": {
+      "total": "250685575168",
+      "used": "215778955264"
+    },
+    "/System/Volumes/Data": {
+      "total": "250685575168",
+      "used": "215778955264"
+    }
+  },
+  "memory": {
+    "total": "8589934592"
+  },
+  "cpu": {
+    "count": 4,
+    "countLogical": 8
+  }
+}
