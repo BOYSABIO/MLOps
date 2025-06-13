@@ -1,0 +1,44 @@
+2025-06-13 15:11:46 - INFO - Running data stage...
+2025-06-13 15:11:46 - INFO - Loading MNIST from local .npy files...
+2025-06-13 15:11:53 - INFO - Validating input data...
+2025-06-13 15:11:53 - INFO - Data validation passed.
+2025-06-13 15:11:53 - INFO - Validating input data...
+2025-06-13 15:11:53 - INFO - Data validation passed.
+2025-06-13 15:11:53 - INFO - Starting preprocessing pipeline...
+2025-06-13 15:11:53 - INFO - Normalizing image pixel values to range [0, 1]
+2025-06-13 15:11:53 - INFO - Reshaping images to shape: (-1, 28, 28, 1)
+2025-06-13 15:11:53 - INFO - One-hot encoding labels
+2025-06-13 15:11:53 - INFO - Preprocessing complete.
+2025-06-13 15:11:53 - INFO - Starting preprocessing pipeline...
+2025-06-13 15:11:53 - INFO - Normalizing image pixel values to range [0, 1]
+2025-06-13 15:11:53 - INFO - Reshaping images to shape: (-1, 28, 28, 1)
+2025-06-13 15:11:53 - INFO - One-hot encoding labels
+2025-06-13 15:11:53 - INFO - Preprocessing complete.
+2025-06-13 15:11:53 - INFO - Saving preprocessed train data to: data/processed/train/
+2025-06-13 15:12:03 - INFO - Images saved to: data/processed/train/train_images.npy
+2025-06-13 15:12:03 - INFO - Labels saved to: data/processed/train/train_labels.npy
+2025-06-13 15:12:03 - INFO - Saving preprocessed test data to: data/processed/test/
+2025-06-13 15:12:07 - INFO - Images saved to: data/processed/test/test_images.npy
+2025-06-13 15:12:07 - INFO - Labels saved to: data/processed/test/test_labels.npy
+2025-06-13 15:12:07 - INFO - Running training stage...
+2025-06-13 15:12:09 - INFO - Training on cpu for 10 epochs
+2025-06-13 15:14:22 - INFO - Epoch [1/10] | Train Loss: 0.1974 | Train Acc: 0.9406 | Val Loss: 0.0705 | Val Acc: 0.9800
+2025-06-13 15:17:44 - INFO - Epoch [2/10] | Train Loss: 0.0885 | Train Acc: 0.9748 | Val Loss: 0.0632 | Val Acc: 0.9784
+2025-06-13 15:20:43 - INFO - Epoch [3/10] | Train Loss: 0.0658 | Train Acc: 0.9800 | Val Loss: 0.0384 | Val Acc: 0.9875
+2025-06-13 15:23:32 - INFO - Epoch [4/10] | Train Loss: 0.0519 | Train Acc: 0.9838 | Val Loss: 0.0529 | Val Acc: 0.9847
+2025-06-13 15:25:53 - INFO - Epoch [5/10] | Train Loss: 0.0465 | Train Acc: 0.9855 | Val Loss: 0.0446 | Val Acc: 0.9867
+2025-06-13 15:28:25 - INFO - Epoch [6/10] | Train Loss: 0.0396 | Train Acc: 0.9874 | Val Loss: 0.0461 | Val Acc: 0.9878
+2025-06-13 15:30:48 - INFO - Epoch [7/10] | Train Loss: 0.0343 | Train Acc: 0.9895 | Val Loss: 0.0401 | Val Acc: 0.9888
+2025-06-13 15:33:01 - INFO - Epoch [8/10] | Train Loss: 0.0292 | Train Acc: 0.9905 | Val Loss: 0.0412 | Val Acc: 0.9882
+2025-06-13 15:35:20 - INFO - Epoch [9/10] | Train Loss: 0.0257 | Train Acc: 0.9917 | Val Loss: 0.0387 | Val Acc: 0.9898
+2025-06-13 15:38:06 - INFO - Epoch [10/10] | Train Loss: 0.0232 | Train Acc: 0.9919 | Val Loss: 0.0398 | Val Acc: 0.9901
+2025-06-13 15:38:06 - INFO - Evaluating model...
+2025-06-13 15:38:22 - INFO - Evaluation complete - Accuracy: 0.9910
+2025-06-13 15:38:27 - INFO - Confusion matrix plot saved to reports/figures/confusion_matrix.png
+2025-06-13 15:38:27 - INFO - Extracting features from model...
+2025-06-13 15:38:27 - INFO - Extracted embeddings shape: (1000, 128)
+2025-06-13 15:38:29 - INFO - Generating t-SNE plot...
+2025-06-13 15:38:33 - INFO - t-SNE plot saved to reports/figures/tsne_plot.png
+2025-06-13 15:38:33 - INFO - Generating PCA plot...
+2025-06-13 15:38:34 - INFO - PCA plot saved to reports/figures/pca_plot.png
+2025-06-13 15:38:36 - INFO - Model saved to models/pytorch_mnist_model.pth
