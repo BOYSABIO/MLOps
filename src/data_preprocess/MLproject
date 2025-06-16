@@ -1,0 +1,8 @@
+name: data_preprocess
+
+entry_points:
+  main:
+    parameters:
+      normalize: {type: bool, default: true}
+      output_dir: {type: str, default: "data/processed/"}
+    command: "PYTHONPATH=../.. python main.py"

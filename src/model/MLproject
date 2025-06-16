@@ -1,0 +1,12 @@
+name: model
+
+entry_points:
+  main:
+    parameters:
+      batch_size: {type: int, default: 32}
+      epochs: {type: int, default: 5}
+      learning_rate: {type: float, default: 0.001}
+      input_shape: {type: str, default: "[1, 28, 28]"}
+      num_classes: {type: int, default: 10}
+      save_path: {type: str, default: "models/pytorch_mnist_model.pth"}
+    command: "PYTHONPATH=../.. python main.py"

@@ -1,0 +1,7 @@
+name: data_load
+
+entry_points:
+  main:
+    parameters:
+      data_dir: {type: str, default: "data/raw/"}
+    command: "PYTHONPATH=../.. python main.py"

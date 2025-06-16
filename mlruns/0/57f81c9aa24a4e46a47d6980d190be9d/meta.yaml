@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/edwinblanco/Desktop/MLOps-main/mlruns/0/57f81c9aa24a4e46a47d6980d190be9d/artifacts
+end_time: 1750066553619
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 57f81c9aa24a4e46a47d6980d190be9d
+run_uuid: 57f81c9aa24a4e46a47d6980d190be9d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750066548440
+status: 3
+tags: []
+user_id: edwinblanco

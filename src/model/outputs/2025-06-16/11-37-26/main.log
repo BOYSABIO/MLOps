@@ -1,0 +1,22 @@
+[2025-06-16 11:37:26,591][__main__][INFO] - 🚀 Starting model training step
+[2025-06-16 11:37:26,591][root][INFO] - Downloading MNIST from Keras...
+[2025-06-16 11:37:26,974][root][INFO] - Saved raw data to data/raw
+[2025-06-16 11:37:26,974][root][INFO] - Validating input data...
+[2025-06-16 11:37:27,025][root][INFO] - Data validation passed.
+[2025-06-16 11:37:27,025][root][INFO] - Validating input data...
+[2025-06-16 11:37:27,031][root][INFO] - Data validation passed.
+[2025-06-16 11:37:27,032][src.data_preprocess.data_preprocessing][INFO] - Starting preprocessing pipeline...
+[2025-06-16 11:37:27,032][src.data_preprocess.data_preprocessing][INFO] - Normalizing image pixel values to range [0, 1]
+[2025-06-16 11:37:27,258][src.data_preprocess.data_preprocessing][INFO] - Reshaping images to shape: (-1, 28, 28, 1)
+[2025-06-16 11:37:27,259][src.data_preprocess.data_preprocessing][INFO] - One-hot encoding labels
+[2025-06-16 11:37:27,262][src.data_preprocess.data_preprocessing][INFO] - Preprocessing complete.
+[2025-06-16 11:37:27,262][src.data_preprocess.data_preprocessing][INFO] - Starting preprocessing pipeline...
+[2025-06-16 11:37:27,262][src.data_preprocess.data_preprocessing][INFO] - Normalizing image pixel values to range [0, 1]
+[2025-06-16 11:37:27,276][src.data_preprocess.data_preprocessing][INFO] - Reshaping images to shape: (-1, 28, 28, 1)
+[2025-06-16 11:37:27,277][src.data_preprocess.data_preprocessing][INFO] - One-hot encoding labels
+[2025-06-16 11:37:27,277][src.data_preprocess.data_preprocessing][INFO] - Preprocessing complete.
+[2025-06-16 11:37:29,115][root][INFO] - Training on cpu for 5 epochs
+[2025-06-16 11:40:53,779][root][INFO] - Epoch [1/5], Loss: 371.0552
+[2025-06-16 11:44:52,290][root][INFO] - Epoch [2/5], Loss: 177.0727
+[2025-06-16 11:46:51,350][root][INFO] - Epoch [3/5], Loss: 134.4599
+[2025-06-16 11:49:01,524][root][INFO] - Epoch [4/5], Loss: 112.1027

@@ -1,0 +1,24 @@
+[2025-06-16 11:37:11,259][__main__][INFO] - 🧼 Starting data preprocessing step
+[2025-06-16 11:37:11,259][root][INFO] - Downloading MNIST from Keras...
+[2025-06-16 11:37:11,553][root][INFO] - Saved raw data to data/raw
+[2025-06-16 11:37:11,554][root][INFO] - Validating input data...
+[2025-06-16 11:37:11,605][root][INFO] - Data validation passed.
+[2025-06-16 11:37:11,605][root][INFO] - Validating input data...
+[2025-06-16 11:37:11,612][root][INFO] - Data validation passed.
+[2025-06-16 11:37:11,612][src.data_preprocess.data_preprocessing][INFO] - Starting preprocessing pipeline...
+[2025-06-16 11:37:11,612][src.data_preprocess.data_preprocessing][INFO] - Normalizing image pixel values to range [0, 1]
+[2025-06-16 11:37:11,801][src.data_preprocess.data_preprocessing][INFO] - Reshaping images to shape: (-1, 28, 28, 1)
+[2025-06-16 11:37:11,801][src.data_preprocess.data_preprocessing][INFO] - One-hot encoding labels
+[2025-06-16 11:37:11,803][src.data_preprocess.data_preprocessing][INFO] - Preprocessing complete.
+[2025-06-16 11:37:11,803][src.data_preprocess.data_preprocessing][INFO] - Starting preprocessing pipeline...
+[2025-06-16 11:37:11,803][src.data_preprocess.data_preprocessing][INFO] - Normalizing image pixel values to range [0, 1]
+[2025-06-16 11:37:11,815][src.data_preprocess.data_preprocessing][INFO] - Reshaping images to shape: (-1, 28, 28, 1)
+[2025-06-16 11:37:11,815][src.data_preprocess.data_preprocessing][INFO] - One-hot encoding labels
+[2025-06-16 11:37:11,816][src.data_preprocess.data_preprocessing][INFO] - Preprocessing complete.
+[2025-06-16 11:37:11,818][src.data_preprocess.data_preprocessing][INFO] - Saving preprocessed train data to: data/processed/
+[2025-06-16 11:37:11,895][src.data_preprocess.data_preprocessing][INFO] - Images saved to: data/processed/train_images.npy
+[2025-06-16 11:37:11,895][src.data_preprocess.data_preprocessing][INFO] - Labels saved to: data/processed/train_labels.npy
+[2025-06-16 11:37:11,895][src.data_preprocess.data_preprocessing][INFO] - Saving preprocessed test data to: data/processed/
+[2025-06-16 11:37:11,910][src.data_preprocess.data_preprocessing][INFO] - Images saved to: data/processed/test_images.npy
+[2025-06-16 11:37:11,910][src.data_preprocess.data_preprocessing][INFO] - Labels saved to: data/processed/test_labels.npy
+[2025-06-16 11:37:11,911][__main__][INFO] - ✅ Preprocessing complete and data saved.
