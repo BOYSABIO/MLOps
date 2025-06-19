@@ -25,3 +25,6 @@ logs/
 
 #project egg folder ignore
 mlops_project.egg-info/
+
+# Testing
+api_test.py

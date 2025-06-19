@@ -21,55 +21,22 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
     rm miniconda.sh
 
 # Initialize conda for bash shell
-RUN conda init bash && \
-    echo "conda activate MNIST_NUM_DETECT" >> ~/.bashrc
+RUN conda init bash
 
-# Copy environment files
+# Copy environment files first to leverage Docker cache
 COPY environment.yaml .
 COPY setup.py .
 
-# Configure conda channels
-RUN conda config --add channels conda-forge && \
-    conda config --add channels pytorch && \
-    conda config --set channel_priority flexible
-
-# Create conda environment with CUDA-enabled PyTorch
+# Create conda environment and install dependencies
 RUN . /opt/conda/etc/profile.d/conda.sh && \
-    conda create -n MNIST_NUM_DETECT python=3.10 -y && \
-    conda activate MNIST_NUM_DETECT && \
-    conda install -y -c pytorch -c nvidia -c conda-forge \
-    pytorch=2.0.1 \
-    torchvision=0.15.2 \
-    torchaudio=2.0.2 \
-    cudatoolkit=11.8 \
-    numpy=1.26.4 \
-    pandas=2.2.3 \
-    matplotlib=3.10.3 \
-    seaborn=0.13.2 \
-    scikit-learn=1.6.1 \
-    scipy=1.11.4 \
-    pyyaml=6.0.2 \
-    pytest=8.3.5
-
-# Install pip packages
-RUN . /opt/conda/etc/profile.d/conda.sh && \
-    conda activate MNIST_NUM_DETECT && \
-    pip install --no-cache-dir \
-    opencv-python==4.11.0.86 \
-    fastapi==0.109.2 \
-    python-multipart==0.0.9 \
-    uvicorn==0.27.1
+    conda env create -f environment.yaml && \
+    conda clean -afy
 
 # Copy the rest of the application
 COPY src/ src/
 COPY data/ data/
 COPY models/ models/
 COPY config.yaml .
-
-# Install the package in development mode
-RUN . /opt/conda/etc/profile.d/conda.sh && \
-    conda activate MNIST_NUM_DETECT && \
-    pip install -e .
 
 # Set environment variables
 ENV PYTHONPATH=/app
