@@ -43,31 +43,31 @@ model = None
 async def load_model():
     global model
     try:
-        # Set MLflow tracking URI
-        mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+        # Try to load local model first (more reliable for testing)
+        from src.inference.inference import load_trained_model
         
-        # Load model from MLflow
-        model = mlflow.pyfunc.load_model(
-            f"models:/{MLFLOW_MODEL_NAME}/{MLFLOW_MODEL_STAGE}"
+        model = load_trained_model(
+            model_path="models/pytorch_mnist_model.pth",
+            device="cuda" if torch.cuda.is_available() else "cpu"
         )
-        print(f"Model loaded successfully from MLflow: "
-              f"{MLFLOW_MODEL_NAME}/{MLFLOW_MODEL_STAGE}")
-    except Exception as e:
-        print(f"Failed to load model from MLflow: {str(e)}")
-        print("Attempting to load local model as fallback...")
+        print("Local model loaded successfully")
+    except Exception as local_error:
+        print(f"Failed to load local model: {str(local_error)}")
+        print("Attempting to load from MLflow...")
         try:
-            # Fallback to local model loading
-            from src.inference.inference import load_trained_model
+            # Set MLflow tracking URI
+            mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
             
-            model = load_trained_model(
-                model_path="models/pytorch_mnist_model.pth",
-                device="cuda" if torch.cuda.is_available() else "cpu"
+            # Load model from MLflow
+            model = mlflow.pyfunc.load_model(
+                f"models:/{MLFLOW_MODEL_NAME}/{MLFLOW_MODEL_STAGE}"
             )
-            print("Local model loaded successfully as fallback")
-        except Exception as local_error:
+            print(f"Model loaded successfully from MLflow: "
+                  f"{MLFLOW_MODEL_NAME}/{MLFLOW_MODEL_STAGE}")
+        except Exception as mlflow_error:
             raise RuntimeError(
-                f"Failed to load model from MLflow and local fallback: "
-                f"{str(e)} -> {str(local_error)}"
+                f"Failed to load model from local and MLflow: "
+                f"{str(local_error)} -> {str(mlflow_error)}"
             )
 
 def preprocess_image(image_bytes):

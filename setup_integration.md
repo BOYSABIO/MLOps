@@ -14,7 +14,7 @@ The system consists of two main components:
 
 ```bash
 # Build the Docker image
-docker build -t mlops_pipeline:latest .
+docker build -t mnist-api .
 ```
 
 ### 2. Run MLflow Pipeline with Docker Backend
@@ -44,7 +44,7 @@ docker run -p 8000:8000 \
   -e MLFLOW_TRACKING_URI=http://host.docker.internal:5000 \
   -e MLFLOW_MODEL_NAME=mnist_model \
   -e MLFLOW_MODEL_STAGE=Production \
-  mlops_pipeline:latest
+  mnist-api
 ```
 
 ### 5. Test the API
@@ -77,7 +77,7 @@ python -m uvicorn src.api.app:app --host 0.0.0.0 --port 8000
 ### Option 2: Docker Development
 ```bash
 # Build the Docker image
-docker build -t mlops_pipeline:latest .
+docker build -t mnist-api .
 
 # Run MLflow pipeline with Docker backend
 mlflow run . --backend docker
@@ -88,7 +88,7 @@ mlflow server --host 0.0.0.0 --port 5000
 # Run FastAPI app in Docker
 docker run -p 8000:8000 \
   -e MLFLOW_TRACKING_URI=http://host.docker.internal:5000 \
-  mlops_pipeline:latest
+  mnist-api
 ```
 
 ## Model Management
