@@ -1,6 +1,7 @@
 name: mlops_pipeline
 
-conda_env: conda.yaml
+docker_env:
+  image: mlops_pipeline:latest
 
 entry_points:
   main:
