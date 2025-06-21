@@ -25,3 +25,5 @@ logs/
 
 #project egg folder ignore
 mlops_project.egg-info/
+
+mlruns/*
