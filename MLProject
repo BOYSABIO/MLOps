@@ -1,7 +1,6 @@
 name: mlops_pipeline
 
-docker_env:
-  image: mnist-api:latest
+conda_env: environment.yaml
 
 entry_points:
   main:
@@ -10,4 +9,4 @@ entry_points:
         type: string
         default: "all"
     command: >
-      python src/main.py --step {step}
+      python src/main.py step={step}

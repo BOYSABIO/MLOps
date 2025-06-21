@@ -1,7 +1,6 @@
 name: model
 
-conda_env: ../../conda.yaml
-env_manager: conda
+conda_env: ../../environment.yaml
 
 entry_points:
   main:

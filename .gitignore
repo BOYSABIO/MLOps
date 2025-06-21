@@ -27,3 +27,4 @@ logs/
 mlops_project.egg-info/
 
 mlruns/*
+outputs/*
