@@ -1,16 +1,21 @@
+import argparse
 import click
 import logging
 import numpy as np
-import torch
-import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+import sys
+import torch
+
+# Make src importable
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
 from src.model.model import load_model
 from src.features.features import extract_embeddings, tsne_plot, pca_plot
+from ..utils.logging_config import get_logger
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 @click.command()
 @click.option("--model-path", required=True, help="Path to the trained model")

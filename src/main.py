@@ -6,7 +6,7 @@ from hydra.utils import to_absolute_path
 from dotenv import load_dotenv
 import wandb
 from datetime import datetime
-from src.utils.logging_config import get_logger
+from utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 

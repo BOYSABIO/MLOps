@@ -1,10 +1,11 @@
 import click
 import logging
 from validation import validate_data_files
+from ..utils.logging_config import get_logger
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 @click.command()
 @click.option("--input-path", required=True, help="Path where the .npy files are located")

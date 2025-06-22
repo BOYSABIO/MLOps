@@ -7,6 +7,7 @@ docker run -p 8000:8000 mnist-api
 """
 
 import os
+import sys
 import mlflow
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,6 +16,9 @@ import torch
 from PIL import Image
 import io
 import mlflow.pyfunc
+
+# Add the app directory to Python path for imports
+sys.path.append('/app')
 
 app = FastAPI(
     title="MNIST Digit Recognition API",

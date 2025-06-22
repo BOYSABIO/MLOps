@@ -2,8 +2,11 @@ import torch
 import torch.nn.functional as F
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "model")))
-from model import CNNModel
+
+# Add the app directory to Python path for imports
+sys.path.append('/app')
+
+from src.model.model import CNNModel
 
 def load_trained_model(model_path="models/model.pth", device="cpu"):
     model = CNNModel()

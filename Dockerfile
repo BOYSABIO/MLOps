@@ -70,7 +70,8 @@ RUN . /opt/conda/etc/profile.d/conda.sh && \
 # Copy the application code and models
 COPY src/ src/
 COPY models/ models/
-COPY config.yaml .
+COPY conf/ conf/
+COPY environment.yaml .
 
 # Set environment variables
 ENV PYTHONPATH=/app

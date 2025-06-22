@@ -1,10 +1,11 @@
 import click
 import logging
 from evaluation import evaluate_model_performance
+from ..utils.logging_config import get_logger
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 @click.command()
 @click.option("--model-path", required=True, help="Path to the trained model")
