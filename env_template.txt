@@ -1,0 +1,11 @@
+# Weights & Biases Configuration
+# Copy this file to .env and add your actual API key
+
+# Get your API key from https://wandb.ai/settings
+WANDB_API_KEY=your_api_key_here
+
+# Optional: Set your username/entity
+# WANDB_ENTITY=your_username
+
+# Optional: Set project name (will override config.yaml)
+# WANDB_PROJECT=mlops_mnist_project 
