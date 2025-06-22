@@ -1,7 +1,15 @@
+import os
+import sys
 import click
 import logging
-from validation import validate_data_files
-from ..utils.logging_config import get_logger
+
+# Add the src directory to the Python path
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+)
+
+from src.data_validation.validation import validate_data
+from src.utils.logging_config import get_logger
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO)
@@ -17,7 +25,17 @@ def main(input_path):
         logger.info("Step: Data Validation executed.")
         logger.info(f"Validating data in: {input_path}")
 
-        validate_data_files(input_path)
+        # Load and validate the data files
+        import numpy as np
+        
+        x_train = np.load(os.path.join(input_path, "x_train.npy"))
+        y_train = np.load(os.path.join(input_path, "y_train.npy"))
+        x_test = np.load(os.path.join(input_path, "x_test.npy"))
+        y_test = np.load(os.path.join(input_path, "y_test.npy"))
+        
+        # Validate each dataset
+        validate_data(x_train, y_train)
+        validate_data(x_test, y_test)
 
         logger.info("✅ Data validation completed successfully.")
     except Exception as e:

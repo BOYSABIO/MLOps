@@ -11,7 +11,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")
 
 from src.model.model import load_model
 from src.features.features import extract_embeddings, tsne_plot, pca_plot
-from ..utils.logging_config import get_logger
+from src.utils.logging_config import get_logger
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO)

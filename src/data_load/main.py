@@ -1,7 +1,14 @@
 import os
+import sys
 import click
-from data_loader import load_data, save_raw_data
-from ..utils.logging_config import get_logger
+
+# Add the src directory to the Python path
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+)
+
+from src.data_load.data_loader import load_data, save_raw_data
+from src.utils.logging_config import get_logger
 
 logger = get_logger(__name__)
 
