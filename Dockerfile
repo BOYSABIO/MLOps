@@ -63,7 +63,9 @@ RUN . /opt/conda/etc/profile.d/conda.sh && \
     opencv-python==4.11.0.86 \
     fastapi==0.104.1 \
     python-multipart==0.0.9 \
-    uvicorn==0.27.1
+    uvicorn==0.27.1 \
+    wandb \
+    python-dotenv
 
 # Copy the application code and models
 COPY src/ src/

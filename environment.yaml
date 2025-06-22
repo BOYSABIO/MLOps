@@ -30,4 +30,6 @@ dependencies:
     - fastapi
     - python-multipart
     - uvicorn
+    - wandb
+    - python-dotenv
     - -e .

@@ -28,3 +28,6 @@ mlops_project.egg-info/
 
 mlruns/*
 outputs/*
+
+# Weights & Biases
+wandb/

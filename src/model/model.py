@@ -3,6 +3,7 @@ import logging
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch.utils.data import random_split, DataLoader
 
 
 logger = logging.getLogger(__name__)
@@ -54,7 +55,8 @@ class CNNModel(nn.Module):
 
 def train_model(model, train_loader, config):
     """
-    Trains a CNN model using CrossEntropyLoss and Adam optimizer.
+    Trains a CNN model using CrossEntropyLoss and Adam optimizer,
+    with optional wandb logging.
 
     Args:
         model: CNNModel instance
@@ -65,6 +67,14 @@ def train_model(model, train_loader, config):
         Trained model
     """
     try:
+        # Try to import wandb for logging
+        try:
+            import wandb
+            wandb_available = True
+        except ImportError:
+            wandb_available = False
+            logging.info("WandB not available, continuing without logging")
+
         device = get_device()
         model.to(device)
         criterion = nn.CrossEntropyLoss()
@@ -73,15 +83,38 @@ def train_model(model, train_loader, config):
             lr=config["model"].get("learning_rate", 1e-3)
         )
         epochs = config["model"]["epochs"]
+        val_split = config["model"].get("val_split", 0.2)
+
+        # Split train into train/val
+        total_size = len(train_loader.dataset)
+        val_size = int(val_split * total_size)
+        train_size = total_size - val_size
+
+        train_dataset, val_dataset = random_split(
+            train_loader.dataset, [train_size, val_size]
+        )
+        train_loader = DataLoader(
+            train_dataset, 
+            batch_size=config["model"]["batch_size"], 
+            shuffle=True
+        )
+        val_loader = DataLoader(
+            val_dataset, 
+            batch_size=config["model"]["batch_size"]
+        )
 
         logging.info("Training on %s for %d epochs", device, epochs)
         model.train()
 
         for epoch in range(epochs):
+            # Training phase
+            model.train()
             running_loss = 0.0
+            correct = 0
+            total = 0
+
             for images, labels in train_loader:
                 images, labels = images.to(device), labels.to(device)
-
                 optimizer.zero_grad()
                 outputs = model(images)
                 loss = criterion(outputs, labels)
@@ -89,10 +122,46 @@ def train_model(model, train_loader, config):
                 optimizer.step()
 
                 running_loss += loss.item()
+                _, predicted = torch.max(outputs, 1)
+                correct += (predicted == labels).sum().item()
+                total += labels.size(0)
+
+            train_loss = running_loss / len(train_loader)
+            train_accuracy = correct / total
+
+            # Validation phase
+            model.eval()
+            val_loss = 0.0
+            val_correct = 0
+            val_total = 0
+            with torch.no_grad():
+                for images, labels in val_loader:
+                    images, labels = images.to(device), labels.to(device)
+                    outputs = model(images)
+                    loss = criterion(outputs, labels)
+                    val_loss += loss.item()
+                    _, predicted = torch.max(outputs, 1)
+                    val_correct += (predicted == labels).sum().item()
+                    val_total += labels.size(0)
+
+            val_loss /= len(val_loader)
+            val_accuracy = val_correct / val_total
+
+            # Log metrics
+            if wandb_available and wandb.run is not None:
+                wandb.log({
+                    "epoch": epoch + 1,
+                    "train_loss": train_loss,
+                    "train_accuracy": train_accuracy,
+                    "val_loss": val_loss,
+                    "val_accuracy": val_accuracy
+                }, step=epoch + 1)
 
             logging.info(
-                "Epoch [%d/%d], Loss: %.4f",
-                epoch + 1, epochs, running_loss
+                "Epoch [%d/%d] | Train Loss: %.4f | Train Acc: %.4f | "
+                "Val Loss: %.4f | Val Acc: %.4f",
+                epoch + 1, epochs, train_loss, train_accuracy, 
+                val_loss, val_accuracy
             )
 
         return model
@@ -114,6 +183,18 @@ def save_model(model, path):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         torch.save(model.state_dict(), path)
         logging.info("Model saved to %s", path)
+        
+        # Log model artifact to wandb if available
+        try:
+            import wandb
+            if wandb.run is not None:
+                artifact = wandb.Artifact("pytorch_mnist_model", type="model")
+                artifact.add_file(path)
+                wandb.log_artifact(artifact)
+                logging.info("Model logged to WandB as artifact")
+        except ImportError:
+            pass  # WandB not available
+            
     except Exception as e:
         logging.error("Saving model failed", exc_info=True)
         raise IOError("Failed to save model") from e

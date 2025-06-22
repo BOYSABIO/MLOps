@@ -18,7 +18,8 @@ from src.model.model import CNNModel, train_model, save_model
 @click.option("--epochs", default=5, type=int)
 @click.option("--learning-rate", default=0.001, type=float)
 @click.option("--batch-size", default=32, type=int)
-def main(train_images_path, train_labels_path, output_model_path, epochs, learning_rate, batch_size):
+@click.option("--val-split", default=0.2, type=float)
+def main(train_images_path, train_labels_path, output_model_path, epochs, learning_rate, batch_size, val_split):
     logging.basicConfig(level=logging.INFO)
     logging.info("✅ Model training started")
 
@@ -32,7 +33,14 @@ def main(train_images_path, train_labels_path, output_model_path, epochs, learni
     loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
     model = CNNModel(num_classes=10)
-    config = {"model": {"epochs": epochs, "learning_rate": learning_rate}}
+    config = {
+        "model": {
+            "epochs": epochs, 
+            "learning_rate": learning_rate, 
+            "batch_size": batch_size,
+            "val_split": val_split
+        }
+    }
     model = train_model(model, loader, config)
 
     save_model(model, output_model_path)

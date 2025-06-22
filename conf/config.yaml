@@ -23,3 +23,11 @@ model:
   learning_rate: 0.001
   input_shape: [1, 28, 28]
   num_classes: 10
+  val_split: 0.2  # Validation split ratio
+
+wandb:
+  project: "mlops_mnist_project"
+  entity: null  # Set to your wandb username if needed
+  tags: ["group2", "mnist", "baseline"]
+  name_prefix: "baseline_run"
+  enabled: true
