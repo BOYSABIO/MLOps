@@ -1,38 +1,31 @@
-import os
-import sys
+import click
 import logging
-import argparse
-import numpy as np
+from evaluation import evaluate_model_performance
 
-# Make src importable
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
-
-from src.model.model import load_model
-from src.evaluation.evaluation import evaluate_model, plot_confusion_matrix
-import torch
-
+# Configuración de logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--model-path", type=str, default="../../models/model.pth")
-    parser.add_argument("--test-images-path", type=str, default="../../data/processed/test_images.npy")
-    parser.add_argument("--test-labels-path", type=str, default="../../data/processed/test_labels.npy")
-    args = parser.parse_args()
+@click.command()
+@click.option("--model-path", required=True, help="Path to the trained model")
+@click.option("--test-images-path", required=True, help="Path to test images")
+@click.option("--test-labels-path", required=True, help="Path to test labels")
+def main(model_path, test_images_path, test_labels_path):
+    """
+    MLflow entry point para evaluar el modelo
+    """
+    try:
+        logger.info("Step: Model Evaluation executed.")
+        logger.info(f"Evaluating model: {model_path}")
+        logger.info(f"Test images: {test_images_path}")
+        logger.info(f"Test labels: {test_labels_path}")
 
-    logger.info("🔍 Starting evaluation step...")
+        evaluate_model_performance(model_path, test_images_path, test_labels_path)
 
-    # Load model and data
-    model = load_model(args.model_path)
-    x_test = torch.tensor(np.load(args.test_images_path)).permute(0, 3, 1, 2).float()
-    y_test = torch.tensor(np.argmax(np.load(args.test_labels_path), axis=1))
-
-    acc, cm = evaluate_model(model, x_test, y_test)
-
-    plot_confusion_matrix(cm, save_path="../../reports/figures/confusion_matrix.png")
-    logger.info("✅ Evaluation finished. Accuracy = %.4f", acc)
-
+        logger.info("✅ Model evaluation completed successfully.")
+    except Exception as e:
+        logger.error("❌ Model Evaluation failed", exc_info=True)
+        raise RuntimeError("evaluation failed") from e
 
 if __name__ == "__main__":
     main()

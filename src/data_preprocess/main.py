@@ -1,27 +1,29 @@
-import os
 import click
-import numpy as np
-from data_preprocessing import preprocess_data, save_preprocessed_data
+import logging
+from data_preprocessing import preprocess_and_save
+
+# Configuración de logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 @click.command()
-@click.option("--input-path", required=True, type=click.Path(exists=True))
-@click.option("--output-path", default="data/processed", type=click.Path())
+@click.option("--input-path", required=True, help="Path where the raw .npy files are located")
+@click.option("--output-path", required=True, help="Path where the processed .npy files will be saved")
 def main(input_path, output_path):
+    """
+    MLflow entry point para preprocesar los archivos .npy
+    """
     try:
-        x_train = np.load(os.path.join(input_path, "x_train.npy"))
-        y_train = np.load(os.path.join(input_path, "y_train.npy"))
-        x_test = np.load(os.path.join(input_path, "x_test.npy"))
-        y_test = np.load(os.path.join(input_path, "y_test.npy"))
+        logger.info("Step: Data Preprocessing executed.")
+        logger.info(f"Processing data from: {input_path}")
+        logger.info(f"Saving processed data to: {output_path}")
+
+        preprocess_and_save(input_path, output_path)
+
+        logger.info("✅ Data preprocessing completed successfully.")
     except Exception as e:
-        raise FileNotFoundError("Expected .npy files not found in input path.") from e
-
-    x_train_prep, y_train_prep = preprocess_data(x_train, y_train)
-    x_test_prep, y_test_prep = preprocess_data(x_test, y_test)
-
-    save_preprocessed_data(x_train_prep, y_train_prep, output_path, data_type="train")
-    save_preprocessed_data(x_test_prep, y_test_prep, output_path, data_type="test")
-
-    print("✅ Data preprocessing completed.")
+        logger.error("❌ Data Preprocessing failed", exc_info=True)
+        raise RuntimeError("data_preprocess failed") from e
 
 if __name__ == "__main__":
     main()

@@ -1,40 +1,27 @@
-import os
 import click
-import numpy as np
-from validation import validate_data
 import logging
+from validation import validate_data_files
 
-# Logging setup
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s - %(message)s",
-)
+# Configuración de logging
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 @click.command()
-@click.option("--input-path", type=click.Path(exists=True), required=True)
+@click.option("--input-path", required=True, help="Path where the .npy files are located")
 def main(input_path):
-    logger.info(f"Step: data_validation started")
-    logger.info(f"Validating data in {input_path}...")
-
+    """
+    MLflow entry point para validar los archivos .npy
+    """
     try:
-        x_path = os.path.join(input_path, "x_train.npy")
-        y_path = os.path.join(input_path, "y_train.npy")
+        logger.info("Step: Data Validation executed.")
+        logger.info(f"Validating data in: {input_path}")
 
-        if not os.path.exists(x_path) or not os.path.exists(y_path):
-            raise FileNotFoundError("Expected .npy files not found in input path.")
+        validate_data_files(input_path)
 
-        x = np.load(x_path)
-        y = np.load(y_path)
-
-        validate_data(x, y)
-
-        logger.info("✅ Data validation passed.")
-
+        logger.info("✅ Data validation completed successfully.")
     except Exception as e:
-        logger.error("❌ Data validation failed.", exc_info=True)
-        raise e
-
+        logger.error("❌ Data Validation failed", exc_info=True)
+        raise RuntimeError("data_validation failed") from e
 
 if __name__ == "__main__":
     main()

@@ -1,17 +1,19 @@
 import mlflow
 import os
 import hydra
-import logging
 from omegaconf import DictConfig
 from hydra.utils import to_absolute_path
 from dotenv import load_dotenv
 import wandb
 from datetime import datetime
+from src.utils.logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 @hydra.main(config_path="../conf", config_name="config", version_base=None)
 def main(cfg: DictConfig):
-    logging.info(f"Running pipeline step: {cfg.step}")
+    logger.info(f"Running pipeline step: {cfg.step}")
 
     # Load environment variables and initialize wandb if enabled
     load_dotenv()
@@ -28,17 +30,17 @@ def main(cfg: DictConfig):
                 tags=list(cfg.wandb.tags),
                 name=run_name
             )
-            logging.info(f"WandB initialized successfully with run name: {run_name}")
+            logger.info(f"WandB initialized successfully with run name: {run_name}")
         except Exception as e:
-            logging.warning(f"Failed to initialize WandB: {e}")
-            logging.info("Continuing without WandB logging")
+            logger.warning(f"Failed to initialize WandB: {e}")
+            logger.info("Continuing without WandB logging")
 
     VALID_STEPS = [
         "all", "data_load", "data_validation", "data_preprocess",
         "model", "evaluation", "features", "inference"
     ]
     if cfg.step not in VALID_STEPS:
-        logging.error(
+        logger.error(
             f"Unknown step '{cfg.step}'. Must be one of: {VALID_STEPS}"
         )
         return
@@ -59,6 +61,7 @@ def main(cfg: DictConfig):
     try:
         # Launch modules with MLflow (keeping your existing setup)
         if cfg.step in ("all", "data_load"):
+            logger.info("🔁 Running data_load step")
             mlflow.run(
                 uri="src/data_load",
                 entry_point="main",
@@ -66,6 +69,7 @@ def main(cfg: DictConfig):
             )
 
         if cfg.step in ("all", "data_validation"):
+            logger.info("🔁 Running data_validation step")
             mlflow.run(
                 uri="src/data_validation",
                 entry_point="main",
@@ -73,6 +77,7 @@ def main(cfg: DictConfig):
             )
 
         if cfg.step in ("all", "data_preprocess"):
+            logger.info("🔁 Running data_preprocess step")
             mlflow.run(
                 uri="src/data_preprocess",
                 entry_point="main",
@@ -83,6 +88,7 @@ def main(cfg: DictConfig):
             )
 
         if cfg.step in ("all", "model"):
+            logger.info("🔁 Running model step")
             mlflow.run(
                 uri="src/model",
                 entry_point="main",
@@ -98,6 +104,7 @@ def main(cfg: DictConfig):
             )
 
         if cfg.step in ("all", "evaluation"):
+            logger.info("🔁 Running evaluation step")
             mlflow.run(
                 uri="src/evaluation",
                 entry_point="main",
@@ -109,6 +116,7 @@ def main(cfg: DictConfig):
             )
 
         if cfg.step in ("all", "features"):
+            logger.info("🔁 Running features step")
             mlflow.run(
                 uri="src/features",
                 entry_point="main",
@@ -121,6 +129,7 @@ def main(cfg: DictConfig):
             )
 
         if cfg.step in ("all", "inference"):
+            logger.info("🔁 Running inference step")
             mlflow.run(
                 uri="src/inference",
                 entry_point="main",
@@ -135,7 +144,7 @@ def main(cfg: DictConfig):
         # Clean up wandb if it was initialized
         if hasattr(cfg, 'wandb') and cfg.wandb.enabled and wandb.run is not None:
             wandb.finish()
-            logging.info("WandB run finished")
+            logger.info("WandB run finished")
 
 
 if __name__ == "__main__":

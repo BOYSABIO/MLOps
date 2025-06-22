@@ -1,13 +1,11 @@
 import os
-import logging
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import random_split, DataLoader
+from src.utils.logging_config import get_logger
 
-
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
+logger = get_logger(__name__)
 
 
 def get_device():
@@ -73,7 +71,7 @@ def train_model(model, train_loader, config):
             wandb_available = True
         except ImportError:
             wandb_available = False
-            logging.info("WandB not available, continuing without logging")
+            logger.info("WandB not available, continuing without logging")
 
         device = get_device()
         model.to(device)
@@ -103,7 +101,7 @@ def train_model(model, train_loader, config):
             batch_size=config["model"]["batch_size"]
         )
 
-        logging.info("Training on %s for %d epochs", device, epochs)
+        logger.info("Training on %s for %d epochs", device, epochs)
         model.train()
 
         for epoch in range(epochs):
@@ -157,7 +155,7 @@ def train_model(model, train_loader, config):
                     "val_accuracy": val_accuracy
                 }, step=epoch + 1)
 
-            logging.info(
+            logger.info(
                 "Epoch [%d/%d] | Train Loss: %.4f | Train Acc: %.4f | "
                 "Val Loss: %.4f | Val Acc: %.4f",
                 epoch + 1, epochs, train_loss, train_accuracy, 
@@ -167,7 +165,7 @@ def train_model(model, train_loader, config):
         return model
 
     except Exception as e:
-        logging.error("Model training failed", exc_info=True)
+        logger.error("Model training failed", exc_info=True)
         raise RuntimeError("Training process failed") from e
 
 
@@ -182,7 +180,7 @@ def save_model(model, path):
     try:
         os.makedirs(os.path.dirname(path), exist_ok=True)
         torch.save(model.state_dict(), path)
-        logging.info("Model saved to %s", path)
+        logger.info("Model saved to %s", path)
         
         # Log model artifact to wandb if available
         try:
@@ -191,12 +189,12 @@ def save_model(model, path):
                 artifact = wandb.Artifact("pytorch_mnist_model", type="model")
                 artifact.add_file(path)
                 wandb.log_artifact(artifact)
-                logging.info("Model logged to WandB as artifact")
+                logger.info("Model logged to WandB as artifact")
         except ImportError:
             pass  # WandB not available
             
     except Exception as e:
-        logging.error("Saving model failed", exc_info=True)
+        logger.error("Saving model failed", exc_info=True)
         raise IOError("Failed to save model") from e
 
 
@@ -217,8 +215,8 @@ def load_model(path, num_classes=10):
         model.load_state_dict(torch.load(path, map_location=device))
         model.to(device)
         model.eval()
-        logging.info("Model loaded from %s", path)
+        logger.info("Model loaded from %s", path)
         return model
     except Exception as e:
-        logging.error("Loading model failed", exc_info=True)
+        logger.error("Loading model failed", exc_info=True)
         raise RuntimeError("Failed to load model") from e
