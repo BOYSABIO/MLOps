@@ -4,8 +4,6 @@ import hydra
 from omegaconf import DictConfig
 from hydra.utils import to_absolute_path
 from dotenv import load_dotenv
-import wandb
-from datetime import datetime
 from utils.logging_config import get_logger
 
 logger = get_logger(__name__)
@@ -15,25 +13,8 @@ logger = get_logger(__name__)
 def main(cfg: DictConfig):
     logger.info(f"Running pipeline step: {cfg.step}")
 
-    # Load environment variables and initialize wandb if enabled
+    # Load environment variables
     load_dotenv()
-    if hasattr(cfg, 'wandb') and cfg.wandb.enabled:
-        try:
-            # Generate a unique run name with a timestamp
-            run_name = f"{cfg.wandb.name_prefix}-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-
-            wandb.login(key=os.getenv("WANDB_API_KEY"))
-            wandb.init(
-                project=cfg.wandb.project,
-                entity=cfg.wandb.entity,
-                config=dict(cfg.model),
-                tags=list(cfg.wandb.tags),
-                name=run_name
-            )
-            logger.info(f"WandB initialized successfully with run name: {run_name}")
-        except Exception as e:
-            logger.warning(f"Failed to initialize WandB: {e}")
-            logger.info("Continuing without WandB logging")
 
     VALID_STEPS = [
         "all", "data_load", "data_validation", "data_preprocess",
@@ -89,6 +70,19 @@ def main(cfg: DictConfig):
 
         if cfg.step in ("all", "model"):
             logger.info("🔁 Running model step")
+
+            # Prepare wandb params to pass to the MLflow step
+            wandb_params = {}
+            if hasattr(cfg, 'wandb') and cfg.wandb.enabled:
+                wandb_params = {
+                    "wandb-project": cfg.wandb.project,
+                    "wandb-entity": cfg.wandb.entity,
+                    # Pass tags as a comma-separated string
+                    "wandb-tags": ",".join(list(cfg.wandb.tags)),
+                    "wandb-name-prefix": cfg.wandb.name_prefix,
+                    "wandb-enabled": True
+                }
+
             mlflow.run(
                 uri="src/model",
                 entry_point="main",
@@ -99,8 +93,11 @@ def main(cfg: DictConfig):
                     "epochs": cfg.model.epochs,
                     "learning-rate": cfg.model.learning_rate,
                     "batch-size": cfg.model.batch_size,
-                    "val-split": cfg.model.val_split
-                }
+                    "val-split": cfg.model.val_split,
+                    "num-classes": cfg.model.num_classes,
+                    "input-shape": ",".join(map(str, cfg.model.input_shape)),
+                    **wandb_params  # Add wandb parameters
+                },
             )
 
         if cfg.step in ("all", "evaluation"):
@@ -141,10 +138,8 @@ def main(cfg: DictConfig):
             )
 
     finally:
-        # Clean up wandb if it was initialized
-        if hasattr(cfg, 'wandb') and cfg.wandb.enabled and wandb.run is not None:
-            wandb.finish()
-            logger.info("WandB run finished")
+        # No wandb.finish needed here anymore
+        logger.info("MLOps pipeline finished.")
 
 
 if __name__ == "__main__":
