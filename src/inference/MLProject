@@ -1,6 +1,6 @@
 name: inference
 
-conda_env: ../../conda.yaml
+conda_env: ../../environment.yaml
 env_manager: conda
 
 entry_points:
