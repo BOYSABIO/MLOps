@@ -1,9 +1,17 @@
+"""Defines and trains a PyTorch CNN model for image classification."""
 import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import random_split, DataLoader
 from ..utils.logging_config import get_logger
+
+try:
+    import wandb
+    WANDB_AVAILABLE = True
+except ImportError:
+    WANDB_AVAILABLE = False
+
 
 logger = get_logger(__name__)
 
@@ -39,6 +47,15 @@ class CNNModel(nn.Module):
         self.fc2 = nn.Linear(128, num_classes)
 
     def forward(self, x):
+        """
+        Defines the forward pass of the CNN.
+
+        Args:
+            x (torch.Tensor): Input tensor of shape (batch_size, 1, 28, 28).
+
+        Returns:
+            torch.Tensor: Output tensor of shape (batch_size, num_classes).
+        """
         x = F.relu(self.bn1(self.conv1(x)))
         x = self.dropout(x)
         x = F.relu(self.bn2(self.conv2(x)))
@@ -65,12 +82,8 @@ def train_model(model, train_loader, config):
         Trained model
     """
     try:
-        # Try to import wandb for logging
-        try:
-            import wandb
-            wandb_available = True
-        except ImportError:
-            wandb_available = False
+        # Check if wandb is available for logging
+        if not WANDB_AVAILABLE:
             logger.info("WandB not available, continuing without logging")
 
         device = get_device()
@@ -92,12 +105,12 @@ def train_model(model, train_loader, config):
             train_loader.dataset, [train_size, val_size]
         )
         train_loader = DataLoader(
-            train_dataset, 
-            batch_size=config["model"]["batch_size"], 
+            train_dataset,
+            batch_size=config["model"]["batch_size"],
             shuffle=True
         )
         val_loader = DataLoader(
-            val_dataset, 
+            val_dataset,
             batch_size=config["model"]["batch_size"]
         )
 
@@ -146,7 +159,7 @@ def train_model(model, train_loader, config):
             val_accuracy = val_correct / val_total
 
             # Log metrics
-            if wandb_available and wandb.run is not None:
+            if WANDB_AVAILABLE and wandb.run is not None:
                 wandb.log({
                     "epoch": epoch + 1,
                     "train_loss": train_loss,
@@ -158,7 +171,7 @@ def train_model(model, train_loader, config):
             logger.info(
                 "Epoch [%d/%d] | Train Loss: %.4f | Train Acc: %.4f | "
                 "Val Loss: %.4f | Val Acc: %.4f",
-                epoch + 1, epochs, train_loss, train_accuracy, 
+                epoch + 1, epochs, train_loss, train_accuracy,
                 val_loss, val_accuracy
             )
 
@@ -181,18 +194,14 @@ def save_model(model, path):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         torch.save(model.state_dict(), path)
         logger.info("Model saved to %s", path)
-        
+
         # Log model artifact to wandb if available
-        try:
-            import wandb
-            if wandb.run is not None:
-                artifact = wandb.Artifact("pytorch_mnist_model", type="model")
-                artifact.add_file(path)
-                wandb.log_artifact(artifact)
-                logger.info("Model logged to WandB as artifact")
-        except ImportError:
-            pass  # WandB not available
-            
+        if WANDB_AVAILABLE and wandb.run is not None:
+            artifact = wandb.Artifact("pytorch_mnist_model", type="model")
+            artifact.add_file(path)
+            wandb.log_artifact(artifact)
+            logger.info("Model logged to WandB as artifact")
+
     except Exception as e:
         logger.error("Saving model failed", exc_info=True)
         raise IOError("Failed to save model") from e

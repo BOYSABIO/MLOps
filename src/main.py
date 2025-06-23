@@ -1,5 +1,6 @@
-import mlflow
+"""Main script to run the MLOps pipeline."""
 import os
+import mlflow
 import hydra
 from omegaconf import DictConfig
 from hydra.utils import to_absolute_path
@@ -11,18 +12,24 @@ logger = get_logger(__name__)
 
 @hydra.main(config_path="../conf", config_name="config", version_base=None)
 def main(cfg: DictConfig):
-    logger.info(f"Running pipeline step: {cfg.step}")
+    """
+    Run a single step of the MLOps pipeline.
+
+    Args:
+        cfg (DictConfig): Hydra configuration object.
+    """
+    logger.info("Running pipeline step: %s", cfg.step)
 
     # Load environment variables
     load_dotenv()
 
-    VALID_STEPS = [
+    valid_steps = [
         "all", "data_load", "data_validation", "data_preprocess",
         "model", "evaluation", "features", "inference"
     ]
-    if cfg.step not in VALID_STEPS:
+    if cfg.step not in valid_steps:
         logger.error(
-            f"Unknown step '{cfg.step}'. Must be one of: {VALID_STEPS}"
+            "Unknown step '%s'. Must be one of: %s", cfg.step, valid_steps
         )
         return
 
@@ -143,4 +150,4 @@ def main(cfg: DictConfig):
 
 
 if __name__ == "__main__":
-    main()
+    main()  # pylint: disable=no-value-for-parameter

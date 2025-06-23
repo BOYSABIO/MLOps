@@ -1,3 +1,4 @@
+"""Logging configuration for the MLOps pipeline."""
 import logging
 import os
 
@@ -22,6 +23,7 @@ def setup_logging(log_file="logs/main_log.log"):
             logging.StreamHandler()
         ]
     )
+
 
 def get_logger(name: str) -> logging.Logger:
     """
