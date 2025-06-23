@@ -63,7 +63,8 @@ async def load_model_startup():
             )
         except Exception as mlflow_error:
             raise RuntimeError(
-                f"Failed to load model from local and MLflow: {local_error} -> {mlflow_error}"
+                "Failed to load model from local and MLflow: "
+                f"{local_error} -> {mlflow_error}"
             ) from mlflow_error
 
     app.state.model = model
@@ -129,7 +130,8 @@ async def health_check():
         "status": "healthy",
         "model_loaded": model is not None,
         "gpu_available": torch.cuda.is_available(),
-        "gpu_device": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+        "gpu_device": torch.cuda.get_device_name(0)
+        if torch.cuda.is_available() else None,
         "mlflow_tracking_uri": MLFLOW_TRACKING_URI,
         "mlflow_model_name": MLFLOW_MODEL_NAME,
         "mlflow_model_stage": MLFLOW_MODEL_STAGE
