@@ -2,19 +2,13 @@
 
 import logging
 import os
-import sys
-
 import click
 import numpy as np
 import torch
-
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from src.inference.inference import load_trained_model, predict_digits
 from src.utils.logging_config import get_logger
-
-# Add the src directory to the Python path
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-)
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO)

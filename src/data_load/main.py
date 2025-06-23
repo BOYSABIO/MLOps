@@ -1,16 +1,11 @@
 """Main script for loading MNIST data and
 saving it as .npy files using MLflow."""
-
-import os
 import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 import click
 from src.data_load.data_loader import load_data, save_raw_data
 from src.utils.logging_config import get_logger
-
-# Add the src directory to the Python path
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-)
 
 logger = get_logger(__name__)
 

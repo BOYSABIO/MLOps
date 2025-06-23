@@ -1,7 +1,9 @@
 """MLflow entry point to validate MNIST .npy files."""
 
-import os
 import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
 import logging
 
 import click
@@ -9,11 +11,6 @@ import numpy as np
 
 from src.data_validation.validation import validate_data
 from src.utils.logging_config import get_logger
-
-# Add the src directory to the Python path
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-)
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO)

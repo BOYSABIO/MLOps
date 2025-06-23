@@ -1,23 +1,19 @@
 """Command-line interface for training the CNN model."""
 import logging
-import os
-import sys
 from datetime import datetime
 
 import click
 import numpy as np
 import torch
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 try:
     import wandb
     WANDB_AVAILABLE = True
 except ImportError:
     WANDB_AVAILABLE = False
-
-# Add project root to sys.path to allow for src imports
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-)
 # pylint: disable=wrong-import-position
 from src.model.model import (  # noqa: E402
     CNNModel,

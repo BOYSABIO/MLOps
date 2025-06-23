@@ -1,9 +1,9 @@
 """MLflow entry point to preprocess MNIST .npy files."""
 
-import os
 import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 import logging
-
 import click
 import numpy as np
 
@@ -13,10 +13,6 @@ from src.data_preprocess.data_preprocessing import (
 )
 from src.utils.logging_config import get_logger
 
-# Add the src directory to the Python path
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-)
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO)

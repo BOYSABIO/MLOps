@@ -1,7 +1,9 @@
 """MLflow entry point for evaluating a trained CNN model."""
 
-import os
 import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
 import logging
 
 import click
@@ -11,11 +13,6 @@ import torch
 from src.evaluation.evaluation import evaluate_model, plot_confusion_matrix
 from src.utils.logging_config import get_logger
 from src.model.model import CNNModel
-
-# Add the src directory to the Python path
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-)
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO)

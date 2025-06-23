@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import random_split, DataLoader
-from ..utils.logging_config import get_logger
+from src.utils.logging_config import get_logger
 
 try:
     import wandb

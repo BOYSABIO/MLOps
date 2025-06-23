@@ -3,7 +3,6 @@
 import io
 import os
 import sys
-
 import mlflow  # type: ignore
 import mlflow.pyfunc  # type: ignore
 import numpy as np
