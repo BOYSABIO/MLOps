@@ -38,6 +38,30 @@ MLFLOW_MODEL_NAME = os.getenv("MLFLOW_MODEL_NAME", "mnist_model")
 MLFLOW_MODEL_STAGE = os.getenv("MLFLOW_MODEL_STAGE", "Production")
 
 
+@app.get("/")
+async def root():
+    """Root endpoint providing API information."""
+    return {
+        "message": "MNIST Digit Recognition API",
+        "description": (
+            "API for recognizing handwritten digits using MLflow"
+        ),
+        "version": "1.0.0",
+        "endpoints": {
+            "health": "/health",
+            "predict": "/predict",
+            "docs": "/docs"
+        },
+        "usage": {
+            "health_check": "GET /health - Check API and model status",
+            "prediction": (
+                "POST /predict - Upload an image to predict the digit"
+            ),
+            "documentation": "GET /docs - Interactive API documentation"
+        }
+    }
+
+
 @app.on_event("startup")
 async def load_model_startup():
     """Load model on app startup."""
