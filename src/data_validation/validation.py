@@ -1,14 +1,4 @@
-import logging
-import numpy as np
-
-
-def validate_data(
-    x: np.ndarray,
-    y: np.ndarray,
-    expected_shape=(28, 28),
-    num_classes=10
-):
-    """
+"""
     Validates input image and label data.
 
     Args:
@@ -20,6 +10,17 @@ def validate_data(
     Raises:
         ValueError if validation fails
     """
+
+import logging
+import numpy as np
+
+
+def validate_data(
+    x: np.ndarray,
+    y: np.ndarray,
+    expected_shape=(28, 28),
+    num_classes=10
+):    
     try:
         logging.info("Validating input data...")
 
