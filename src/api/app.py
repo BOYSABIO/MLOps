@@ -43,6 +43,7 @@ MLFLOW_MODEL_STAGE = os.getenv("MLFLOW_MODEL_STAGE", "Production")
 # Load the model at startup
 model = None
 
+
 @app.on_event("startup")
 async def load_model():
     global model
@@ -74,6 +75,7 @@ async def load_model():
                 f"{str(local_error)} -> {str(mlflow_error)}"
             )
 
+
 def preprocess_image(image_bytes):
     """Preprocess the uploaded image for prediction."""
     try:
@@ -99,6 +101,7 @@ def preprocess_image(image_bytes):
             status_code=400, 
             detail=f"Image preprocessing failed: {str(e)}"
         )
+
 
 @app.post("/predict")
 async def predict_digit_api(file: UploadFile = File(...)):
@@ -141,6 +144,7 @@ async def predict_digit_api(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
@@ -148,8 +152,8 @@ async def health_check():
         "status": "healthy",
         "model_loaded": model is not None,
         "gpu_available": torch.cuda.is_available(),
-        "gpu_device": (torch.cuda.get_device_name(0) 
-                      if torch.cuda.is_available() else None),
+        "gpu_device": (torch.cuda.get_device_name(0)
+                       if torch.cuda.is_available() else None),
         "mlflow_tracking_uri": MLFLOW_TRACKING_URI,
         "mlflow_model_name": MLFLOW_MODEL_NAME,
         "mlflow_model_stage": MLFLOW_MODEL_STAGE
