@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 import torch
 
-from src.inference.inference import load_trained_model, predict_digit
+from src.inference.inference import load_trained_model, predict_digits
 
 # Ensure predictions folder exists
 os.makedirs("data/predictions", exist_ok=True)
