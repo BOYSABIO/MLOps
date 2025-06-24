@@ -1,4 +1,4 @@
-[![CI and Coverage](https://github.com/BOYSABIO/MLOps/actions/workflows/ci.yml/badge.svg)](https://github.com/BOYSABIO/MLOps/actions/workflows/ci.yml)
+[![CI](https://github.com/BOYSABIO/MLOps/actions/workflows/ci.yml/badge.svg)](https://github.com/BOYSABIO/MLOps/actions/workflows/ci.yml)
 
 # MNIST Digit Recognition - MLOps Pipeline
 
