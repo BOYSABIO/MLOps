@@ -2,7 +2,7 @@
 
 import os
 import torch
-from src.inference.inference import load_trained_model, predict_digit
+from src.inference.inference import load_trained_model, predict_digits
 from src.model.model import CNNModel
 
 
