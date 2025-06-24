@@ -36,8 +36,9 @@ def preprocess_canvas(canvas):
         padded = np.zeros((28, 28), dtype=np.uint8)
 
     norm = padded.astype("float32") / 255.0
-    tensor = torch.tensor(norm).unsqueeze(0).unsqueeze(0)
-    # Shape: (1, 1, 28, 28)
+    # Create tensor in format (N, 28, 28, 1) as expected by predict_digits
+    tensor = torch.tensor(norm).unsqueeze(0).unsqueeze(-1)
+    # Shape: (1, 28, 28, 1)
     return tensor, padded
 
 
@@ -112,8 +113,9 @@ def main():
             last_prediction = None
         elif key == 32:  # SPACE → Predict
             tensor, img28 = preprocess_canvas(canvas)
-            prediction = predict_digit(model, tensor)
-            last_prediction = int(prediction)
+            prediction = predict_digits(model, tensor)
+            # Extract first prediction from list
+            last_prediction = int(prediction[0])
             save_prediction_image(img28, last_prediction)
             canvas[:] = 0  # Clear for next drawing
 
