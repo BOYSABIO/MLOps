@@ -1,3 +1,5 @@
+[![CI and Coverage](https://github.com/BOYSABIO/MLOps/actions/workflows/ci.yml/badge.svg)](https://github.com/BOYSABIO/MLOps/actions/workflows/ci.yml)
+
 # MNIST Digit Recognition - MLOps Pipeline
 
 A complete MLOps pipeline for handwritten digit recognition using PyTorch, featuring experiment tracking with MLflow and Weights & Biases, containerized inference with FastAPI, and automated CI/CD testing.
