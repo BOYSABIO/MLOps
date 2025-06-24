@@ -26,7 +26,7 @@ def test_predict_digit_output_type():
     model = CNNModel()
     model.eval()
     dummy_input = torch.rand((1, 1, 28, 28))
-    output = predict_digit(model, dummy_input, device="cpu")
+    output = predict_digits(model, dummy_input, device="cpu")
     assert isinstance(output, int)
 
 
@@ -35,5 +35,5 @@ def test_predict_digit_output_range():
     model = CNNModel()
     model.eval()
     dummy_input = torch.rand((1, 1, 28, 28))
-    output = predict_digit(model, dummy_input, device="cpu")
+    output = predict_digits(model, dummy_input, device="cpu")
     assert 0 <= output <= 9
