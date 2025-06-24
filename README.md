@@ -2,9 +2,9 @@
 
 # MNIST Digit Recognition - MLOps Pipeline
 
-A complete MLOps pipeline for handwritten digit recognition using PyTorch, featuring experiment tracking with MLflow and Weights & Biases, containerized inference with FastAPI, and automated CI/CD testing.
+A complete MLOps pipeline for handwritten digit recognition using PyTorch, featuring experiment tracking with MLflow and Weights & Biases, dockerized inference with FastAPI, and automated CI/CD testing.
 
-## 🏗️ Project Overview
+## Project Overview
 
 This project demonstrates a production-ready MLOps pipeline with:
 - **Data Pipeline**: Data loading, validation, and preprocessing
@@ -14,7 +14,7 @@ This project demonstrates a production-ready MLOps pipeline with:
 - **Quality Assurance**: Automated testing and CI/CD
 - **Professional Logging**: Structured logging across all modules
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 MLOps/
@@ -46,11 +46,11 @@ MLOps/
 └── README.md                   # This file
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
-- **Python 3.11**
+- **Python 3.10**
 - **Conda** (for environment management)
 - **Docker** (for containerized inference)
 - **Git** (for version control)
@@ -79,7 +79,21 @@ cp env_template.txt .env
 # Get your API key from https://wandb.ai/settings
 ```
 
-### 3. Run the Pipeline
+### 3. MLflow Server Setup (Required)
+
+The pipeline uses MLflow for experiment tracking. Start the MLflow server before running the pipeline:
+
+```bash
+# Start MLflow tracking server (in a separate terminal)
+mlflow server --host 0.0.0.0 --port 5000
+
+# Verify the server is running
+curl http://localhost:5000/health
+```
+
+**Note**: Keep the MLflow server running while executing pipeline steps. The server will track experiments, parameters, and metrics for each pipeline step.
+
+### 4. Run the Pipeline
 
 ```bash
 # Run the complete pipeline
@@ -91,7 +105,7 @@ python src/main.py step=model
 python src/main.py step=evaluation
 ```
 
-## 📊 Pipeline Steps
+## Pipeline Steps
 
 ### 1. Data Loading (`data_load`)
 - Downloads MNIST dataset
@@ -114,6 +128,7 @@ python src/main.py step=evaluation
 - Logs metrics to Weights & Biases
 - Saves model artifacts
 - **Output**: `models/model.pth`
+- **Note**: For API inference, ensure the model is saved as `models/pytorch_mnist_model.pth` or update the API configuration
 
 ### 5. Model Evaluation (`evaluation`)
 - Evaluates model on test set
@@ -168,7 +183,7 @@ wandb:                       # Weights & Biases settings
   enabled: true
 ```
 
-## 🐳 Docker Inference
+## Docker Inference
 
 ### Build the Container
 
@@ -183,6 +198,8 @@ docker build -t mnist-api .
 # Run the FastAPI service
 docker run -p 8000:8000 mnist-api
 ```
+
+**Note**: The API expects the model file to be named `pytorch_mnist_model.pth`. If your model is saved as `model.pth`, either rename it or update the API configuration.
 
 ### Test the API
 
@@ -200,7 +217,7 @@ curl http://localhost:8000/health
 - **POST `/predict`**: Predict digit from uploaded image
 - **GET `/docs`**: Interactive API documentation
 
-## 📈 Experiment Tracking
+## Experiment Tracking
 
 ### Weights & Biases
 
@@ -214,8 +231,9 @@ curl http://localhost:8000/health
 - **Tracking Server**: http://localhost:5000
 - **Experiments**: Organized by pipeline steps
 - **Model Registry**: Versioned model management
+- **UI Access**: Open http://localhost:5000 in your browser to view experiments and metrics
 
-## 🧪 Testing
+## Testing
 
 ### Run Tests
 
@@ -238,7 +256,7 @@ The project includes automated testing via GitHub Actions:
 - **Coverage**: Minimum 50% required
 - **Status**: Check `.github/workflows/ci.yml`
 
-## 📝 Logging
+## Logging
 
 The project uses structured logging throughout:
 
@@ -252,7 +270,7 @@ logger.error("Error occurred", exc_info=True)
 
 **Log Format**: `2025-06-22 11:30:15 - src.model.model - INFO - Training on cuda for 5 epochs`
 
-## 🔍 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -267,7 +285,9 @@ logger.error("Error occurred", exc_info=True)
 
 3. **MLflow Server Not Found**
    - Start MLflow server: `mlflow server --host 0.0.0.0 --port 5000`
-   - Or run without MLflow tracking (local mode)
+   - Verify server is running: `curl http://localhost:5000/health`
+   - Check if port 5000 is available: `lsof -i :5000`
+   - Alternative: Run without MLflow tracking (local mode) by setting environment variable `MLFLOW_TRACKING_URI=file:./mlruns`
 
 4. **CUDA Not Available in Docker**
    - Install NVIDIA Container Toolkit
@@ -284,13 +304,13 @@ conda env create -f environment.yaml
 conda env update -f environment.yaml
 ```
 
-## 📚 Additional Documentation
+## Additional Documentation
 
 - **Executive Summary**: [docs/MLOPS_Exec_Summ.pdf](docs/MLOPS_Exec_Summ.pdf) - Project overview and technical summary
 - **Complete Setup Guide**: [docs/SETUP_GUIDE.md](docs/SETUP_GUIDE.md) - Step-by-step setup from scratch
 - **Production Setup**: [docs/PRODUCTION_SETUP.md](docs/PRODUCTION_SETUP.md) - Production deployment guide
 
-## 🤝 Contributing
+## Contributing
 
 1. **Fork the repository**
 2. **Create a feature branch**: `git checkout -b feature-name`
@@ -299,11 +319,11 @@ conda env update -f environment.yaml
 5. **Push to branch**: `git push origin feature-name`
 6. **Create pull request**
 
-## 📄 License
+## License
 
 This project is part of the MLOps course at IE University.
 
-## 👥 Team
+## Team
 
 - **Group 2** - MNIST Digit Recognition Pipeline
 - **Technologies**: PyTorch, MLflow, Weights & Biases, FastAPI, Docker
