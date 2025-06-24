@@ -17,7 +17,16 @@ from src.model.model import (
     save_model,
     load_model,
 )
-
+config = {
+        "model": {
+            "epochs": 1,
+            "learning_rate": 1e-3,
+            "batch_size": 4,  # Match DataLoader batch size
+            "input_shape": [1, 28, 28],
+            "num_classes": 10,
+            "val_split": 0.2,
+        }
+    }
 
 def test_model_forward_pass():
     """Test that the model's forward pass produces correct output shape."""
@@ -33,7 +42,6 @@ def test_model_training_loop():
     y = torch.randint(0, 10, (16,))
     loader = DataLoader(TensorDataset(x, y), batch_size=4)
 
-    config = {"model": {"epochs": 1, "learning_rate": 1e-3}}
     model = CNNModel()
     trained = train_model(model, loader, config)
 
