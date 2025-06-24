@@ -1,129 +1,56 @@
-"""Tests for main pipeline script (arg parsing, stages)."""
-
+import pytest
 from unittest import mock
+from omegaconf import OmegaConf
 import src.main as main_module
+import os
 
-
-def test_load_config_valid(tmp_path):
-    """Test loading a valid YAML config."""
-    config_path = tmp_path / "config.yaml"
-    config_path.write_text(
-        "model:\n"
-        "  batch_size: 32\n"
-        "  num_classes: 10\n"
-        "  save_path: model.pth"
-    )
-
-    config = main_module.load_config(path=str(config_path))
-    assert config["model"]["batch_size"] == 32
-    assert config["model"]["num_classes"] == 10
-
-
-def test_main_data_stage(monkeypatch):
-    """Test main function runs data stage without errors."""
-    monkeypatch.setattr(
-        main_module,
-        "load_config",
-        lambda path: {
-            "model": {
-                "batch_size": 32,
-                "num_classes": 10,
-                "save_path": "model.pth"
-            }
+@pytest.fixture
+def hydra_cfg():
+    # Minimal valid config for the pipeline
+    return OmegaConf.create({
+        "step": "all",
+        "paths": {
+            "raw_data": "data/raw",
+            "processed_data": "data/processed",
+            "model": "models/model.pth",
+            "reports": "reports/embeddings",
+            "predictions": "predictions/prediction.txt"
+        },
+        "model": {
+            "batch_size": 2,
+            "epochs": 1,
+            "learning_rate": 0.001,
+            "input_shape": [1, 28, 28],
+            "num_classes": 10,
+            "val_split": 0.2
+        },
+        "wandb": {
+            "project": "mlops_mnist_project",
+            "entity": "test-entity",
+            "tags": ["test"],
+            "name_prefix": "test",
+            "enabled": False
         }
-    )
-    monkeypatch.setattr(
-        main_module,
-        "run_data_stage",
-        lambda: ([], [], [], [])
-    )
-    monkeypatch.setattr(main_module, "setup_logging", lambda: None)
+    })
 
-    args = ["main.py", "--stage", "data"]
-    with mock.patch("sys.argv", args):
-        main_module.main()
+def test_main_runs_all_steps(monkeypatch, hydra_cfg):
+    # Patch mlflow.run to just record calls
+    with mock.patch("mlflow.run") as mock_mlflow_run:
+        main_module.main(hydra_cfg)
+        # Should call mlflow.run for each step
+        assert mock_mlflow_run.call_count >= 1
 
+def test_main_invalid_step_logs_error(monkeypatch, hydra_cfg):
+    hydra_cfg.step = "not_a_real_step"
+    with mock.patch.object(main_module.logger, "error") as mock_log_error:
+        main_module.main(hydra_cfg)
+        mock_log_error.assert_called()
+        assert "Unknown step" in mock_log_error.call_args[0][0]
 
-def test_main_train_stage(monkeypatch):
-    """Test main function runs training stage when data is mocked."""
-    monkeypatch.setattr(
-        main_module,
-        "load_config",
-        lambda path: {
-            "model": {
-                "batch_size": 32,
-                "num_classes": 10,
-                "save_path": "model.pth"
-            }
-        }
-    )
-    monkeypatch.setattr(
-        main_module,
-        "run_data_stage",
-        lambda: ([], [], [], [])
-    )
-    monkeypatch.setattr(
-        main_module, "run_training_stage", lambda *args, **kwargs: None
-    )
-    monkeypatch.setattr(main_module, "setup_logging", lambda: None)
-
-    args = ["main.py", "--stage", "train"]
-    with mock.patch("sys.argv", args):
-        main_module.main()
-
-
-def test_main_infer_stage(monkeypatch):
-    """Test infer stage triggers draw interface."""
-    monkeypatch.setattr(
-        main_module,
-        "load_config",
-        lambda path: {
-            "model": {
-                "batch_size": 32,
-                "num_classes": 10,
-                "save_path": "model.pth"
-            }
-        }
-    )
-    monkeypatch.setattr(main_module, "setup_logging", lambda: None)
-    monkeypatch.setattr(
-        main_module, "run_data_stage", lambda: ([], [], [], [])
-    )
-    monkeypatch.setattr(main_module, "run_training_stage", lambda *args: None)
-
-    with mock.patch("src.draw_and_infer.main") as mock_draw:
-        args = ["main.py", "--stage", "infer"]
-        with mock.patch("sys.argv", args):
-            main_module.main()
-            mock_draw.assert_called_once()
-
-
-def test_load_config_invalid(tmp_path):
-    """Test that loading an invalid config file raises an error."""
-    invalid_path = tmp_path / "bad_config.yaml"
-    invalid_path.write_text("not: yaml: valid")  # broken on purpose
-
-    with mock.patch("builtins.open", side_effect=FileNotFoundError):
-        try:
-            main_module.load_config(path=str(invalid_path))
-        except FileNotFoundError:
-            assert True
-        else:
-            assert False, "Expected FileNotFoundError"
-
-
-def test_main_raises_runtime(monkeypatch):
-    """Test that main catches and logs exceptions."""
-    monkeypatch.setattr(main_module, "load_config", lambda _: {"model": {}})
-    monkeypatch.setattr(main_module, "setup_logging", lambda: None)
-    monkeypatch.setattr(
-        main_module,
-        "run_data_stage",
-        lambda: (_ for _ in ()).throw(RuntimeError("fail"))
-    )
-
-    args = ["main.py", "--stage", "data"]
-    with mock.patch("sys.argv", args), \
-         mock.patch("sys.exit") as mock_exit:
-        main_module.main()
-        mock_exit.assert_called_once_with(1)
+def test_main_runs_single_step(monkeypatch, hydra_cfg):
+    hydra_cfg.step = "model"
+    with mock.patch("mlflow.run") as mock_mlflow_run:
+        main_module.main(hydra_cfg)
+        # Should call mlflow.run at least once for the model step
+        assert mock_mlflow_run.call_count == 1
+        assert "model" in mock_mlflow_run.call_args[1]["uri"]
