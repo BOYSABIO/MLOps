@@ -22,7 +22,7 @@ def test_preprocess_canvas_output_shapes():
 
     tensor, img = preprocess_canvas(canvas)
     assert isinstance(tensor, torch.Tensor)
-    assert tensor.shape == (1, 1, 28, 28)
+    assert tensor.shape == (1, 28, 28, 1)
     assert img.shape == (28, 28)
 
 
