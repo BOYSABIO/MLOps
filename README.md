@@ -318,16 +318,6 @@ conda env update -f environment.yaml
 4. **Commit changes**: `git commit -m "Add feature"`
 5. **Push to branch**: `git push origin feature-name`
 6. **Create pull request**
-
-## License
-
-This project is part of the MLOps course at IE University.
-
-## Team
-
-- **Group 2** - MNIST Digit Recognition Pipeline
-- **Technologies**: PyTorch, MLflow, Weights & Biases, FastAPI, Docker
-
 ---
 
 **For questions or issues, please check the troubleshooting section or create an issue in the repository.**
